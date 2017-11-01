@@ -1,4 +1,20 @@
 body {
-    background-color: #FAFAFA;
+    background-color: #EEE;
     font-family: sans-serif;
+}
+
+hr {
+    color: #EEE;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.title {
+    text-align: center;
+    font-family: fantasy;
+}
+
+.cameraScreen {
+    display: flex;
+    background-color: #BFBFBF;
 }
