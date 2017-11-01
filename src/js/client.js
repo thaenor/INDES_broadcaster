@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', _ => {
 
              ytVideo.replace('watch?v=', 'embed/');
              var validateUrl = ytVideo.replace("watch?v=", "embed/"); //replace to "embed/", so any yt link work
+             validateUrl = validateUrl + '?autoplay=1'; 
              const ytLink = validateUrl; //new const created because replace only works for var
              console.log('Watching: ' + ytLink);
              document.getElementById('youtubeFrame').src = ytLink;
@@ -19,6 +20,8 @@ window.addEventListener('DOMContentLoaded', _ => {
              li.appendChild(document.createTextNode(ytLink));
              q.appendChild(li);
          })
+         
+      //   TODO 2: cycle through ytVideo playlist
     //TODO: fix this
     // changing the src in the iFrame doesn't automatically change the video
     // look up how to do this - NOTE: consider using video tag instead
