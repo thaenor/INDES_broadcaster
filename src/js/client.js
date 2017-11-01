@@ -20,17 +20,26 @@ window.addEventListener('DOMContentLoaded', _ => {
     document.getElementById('play').addEventListener('click', _ => {
         const ytVideo = document.getElementById('youtubeURLToQueue').value;
 
-        ytVideo.replace('watch?v=', 'embed/');
-        //add ?autoplay=1 to the end of the video url to make it autoplay
-        var validateUrl = ytVideo.replace("watch?v=", "embed/"); //replace to "embed/", so any yt link work
-        const ytLink = validateUrl; //new const created because replace only works for var
-        console.log('Watching: ' + ytLink);
-        document.getElementById('youtubeFrame').src = ytLink;
-        //window.frames['youtubeFrame'].location.href.reload() //force refresh iFrame, not needed I guess
+             ytVideo.replace('watch?v=', 'embed/');
+             var validateUrl = ytVideo.replace("watch?v=", "embed/"); //replace to "embed/", so any yt link work
+             validateUrl = validateUrl + '?autoplay=1';
+             const ytLink = validateUrl; //new const created because replace only works for var
+             console.log('Watching: ' + ytLink);
+             document.getElementById('youtubeFrame').src = ytLink;
+         //  window.frames['youtubeFrame'].location.href.reload() //force refresh iFrame, not needed I guess
 
-        const q = document.getElementById('YTqueue')
-        const li = document.createElement("li")
-        li.appendChild(document.createTextNode(ytLink));
-        q.appendChild(li);
-    })
+             const q = document.getElementById('YTqueue')
+             const li = document.createElement("li")
+             li.appendChild(document.createTextNode(ytLink));
+             q.appendChild(li);
+         })
+
+      //   TODO 2: cycle through ytVideo playlist
+    //TODO: fix this
+    // changing the src in the iFrame doesn't automatically change the video
+    // look up how to do this - NOTE: consider using video tag instead
+    // document.getElementById('play').addEventListener('click', _ => {
+    //     const ytVideo = document.getElementById('youtubeURLToQueue').value;
+    //     document.getElementById('youtubeFrame').src = ytVideo;
+    // })
 });
