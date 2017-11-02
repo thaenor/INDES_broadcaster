@@ -2,18 +2,28 @@ import video from './video';
 
 window.addEventListener('DOMContentLoaded', _ => {
     const videoEl = document.getElementById('video')
-    video(navigator, videoEl)
+    //video(navigator, videoEl)
 
     //Get all cameras
     navigator.mediaDevices.enumerateDevices()
         .then(function(devices) {
-            devices.forEach(function(device) {
-                console.log(device.kind + ": " + device.label +
-                    " id = " + device.deviceId);
+            devices.forEach(function(device, i) {
+                console.log(device.kind + ": " + device.label + " id = " + device.deviceId)
+                if (device.kind === 'videoinput'){
+                    const videoList = document.getElementById('videoList')
+                    const newVideo = document.createElement('video')
+                    newVideo.setAttribute('class', 'video')
+                    newVideo.setAttribute('id', `camera_${i}`)
+                    newVideo.setAttribute('width',250)
+                    newVideo.setAttribute('height',120)
+                    newVideo.setAttribute('autoplay',true)
+                    videoList.appendChild(newVideo)
+                    video(navigator, newVideo)
+                }
             });
         })
         .catch(function(err) {
-            console.log(err.name + ": " + error.message);
+            console.log(err.name + ": " + err.message)
         });
 
     //Youtube Video Queue event
@@ -33,13 +43,4 @@ window.addEventListener('DOMContentLoaded', _ => {
              li.appendChild(document.createTextNode(ytLink));
              q.appendChild(li);
          })
-
-      //   TODO 2: cycle through ytVideo playlist
-    //TODO: fix this
-    // changing the src in the iFrame doesn't automatically change the video
-    // look up how to do this - NOTE: consider using video tag instead
-    // document.getElementById('play').addEventListener('click', _ => {
-    //     const ytVideo = document.getElementById('youtubeURLToQueue').value;
-    //     document.getElementById('youtubeFrame').src = ytVideo;
-    // })
 });
