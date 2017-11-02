@@ -52,10 +52,15 @@ h1, p {
 
   .block-b {
     grid-column: 1;
-    grid-row: 4;
+    grid-row: 3;
   }
 
   .block-c {
+    grid-column: 1;
+    grid-row: 5;
+  }
+
+  .block-d {
     grid-column: 1;
     grid-row: 6;
   }
