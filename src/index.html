@@ -2,42 +2,26 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="./css/master.css">
-    <link rel="stylesheet" href="./css/photon.css">
+  <meta charset="utf-8">
+  <title>BroadCaster</title>
+  <link rel="stylesheet" href="./css/master.css">
 </head>
 
 <body>
-    <div class="window">
-        <header class="toolbar toolbar-header">
-            <h1 class="title">Broadcaster</h1>
-        </header>
-        <div class="window-content">
-            <div id="cameraList" class="cameraScreen">
-                <video class="video" id="video" width="250" height="120" autoplay></video>
-                <div>
-                    <iframe id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/cVJ-sIu_HyU" frameborder="0"></iframe>
-                </div>
-            </div>
-            <div>
-                <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
-                <button id="play" class="btn btn-default">Play</button>
-                <div class="queue">
-                    <ul id="YTqueue" class="queueList">
-                        <li class="queueItem">
-                            Youtube Item List
-                        </li>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="toolbar toolbar-footer">
-        <h1 class="title">Made with ❤️ in Electron</h1>
-    </footer>
-    <script>
-        require('./js/client.js');
-    </script>
+  <div class="wrapper">
+    <header class="header">Local Camera streams</header>
+
+    <article class="content">
+      <h1>Live Stream Feed</h1>
+    </article>
+
+    <div class="block-a">Youtube Video List</div>
+    <div class="block-b">Local Video List</div>
+    <footer class="footer">My footer</footer>
+  </div>
+  <script>
+    require('./js/client.js');
+  </script>
 </body>
 
 </html>
