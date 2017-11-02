@@ -4,7 +4,7 @@
 
 body {
   margin: 40px;
-  font-family: 'Open Sans', 'sans-serif';
+  font-family: 'Roboto';
   background-color: #fff;
   color: #444;
 }
@@ -73,7 +73,7 @@ h1, p {
 }
 
 .wrapper > * {
-  background-color: #444;
+  background-color: rgb(204, 204, 204);
   color: #fff;
   border-radius: 5px;
   padding: 20px;
