@@ -9,11 +9,6 @@ hr {
     margin-bottom: 20px;
 }
 
-.title {
-    text-align: center;
-    font-family: fantasy;
-}
-
 .cameraScreen {
     display: flex;
     background-color: #BFBFBF;
