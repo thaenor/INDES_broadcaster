@@ -1,4 +1,5 @@
 import Camera from './video';
+import fs from 'fs';
 
 window.addEventListener('DOMContentLoaded', _ => {
     function createVideoElement(parentEl, id){
@@ -44,6 +45,9 @@ window.addEventListener('DOMContentLoaded', _ => {
 
     //Youtube Video Queue event
     document.getElementById('play').addEventListener('click', _ => {
+        if(document.getElementById('youtubeURLToQueue').value === ""){
+            return alert('sorry, I don\'t recognize this as a youtube link')
+        }
         const ytVideo = document.getElementById('youtubeURLToQueue').value;
 
              ytVideo.replace('watch?v=', 'embed/');
@@ -59,4 +63,9 @@ window.addEventListener('DOMContentLoaded', _ => {
              li.appendChild(document.createTextNode(ytLink));
              q.appendChild(li);
          })
+
+    document.getElementById('localToQueue').addEventListener('change', _ => {
+        const path = _.target.files[0].path
+        document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`;
+    })
 });
