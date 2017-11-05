@@ -1,29 +1,45 @@
-import video from './video';
+import Camera from './video';
 
 window.addEventListener('DOMContentLoaded', _ => {
-    const videoEl = document.getElementById('video')
-    //video(navigator, videoEl)
+    function createVideoElement(parentEl, id){
+        const newVideo = document.createElement('video')
+        newVideo.setAttribute('class', 'video')
+        newVideo.setAttribute('id', id)
+        newVideo.setAttribute('width', 250)
+        newVideo.setAttribute('height', 120)
+        newVideo.setAttribute('autoplay', true)
+        parentEl.appendChild(newVideo)
+        return newVideo;
+    }
 
     //Get all cameras
+    const videoList = document.getElementById('videoList')
+    let cameraArray = [];
     navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            devices.forEach(function(device, i) {
-                console.log(device.kind + ": " + device.label + " id = " + device.deviceId)
+        .then(devices => {
+            devices.forEach((device, i) => {
                 if (device.kind === 'videoinput'){
-                    const videoList = document.getElementById('videoList')
-                    const newVideo = document.createElement('video')
-                    newVideo.setAttribute('class', 'video')
-                    newVideo.setAttribute('id', `camera_${i}`)
-                    newVideo.setAttribute('width',250)
-                    newVideo.setAttribute('height',120)
-                    newVideo.setAttribute('autoplay',true)
-                    videoList.appendChild(newVideo)
-                    video(navigator, newVideo)
+                    const newCam = createVideoElement(videoList, `camera_${i}`)
+                    const constrains = {
+                        audio: false,
+                        video: {
+                            mandatory: {
+                                minWidth: 853,
+                                minHeight: 480,
+                                maxWidth: 853,
+                                maxHeight: 480
+                            },
+                            optional: [{ sourceId: device.deviceId }]
+                        }
+                    };
+                    const c = new Camera(constrains)
+                    c.init(newCam)
+                    cameraArray.push()
                 }
             });
         })
         .catch(function(err) {
-            console.log(err.name + ": " + err.message)
+            console.error(err);
         });
 
     //Youtube Video Queue event

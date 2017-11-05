@@ -1,24 +1,20 @@
-const constrains = {
-    audio: false,
-    video: {
-        mandatory: {
-            minWidth: 853,
-            minHeight: 480,
-            maxWidth: 853,
-            maxHeight: 480
-        }
+export default class Camera {
+    constructor(constrains){
+        this.constrains = constrains;
     }
-}
 
-function handleSuccess(videoEl, stream) {
-    videoEl.src = window.URL.createObjectURL(stream);
-}
+    init(domEl) {
+        navigator.getUserMedia = navigator.webkitGetUserMedia
+        navigator.getUserMedia(this.constrains, 
+            stream => this.handleSuccess(domEl, stream), 
+            error => this.handleError(error))
+    }
 
-function handleError(error) {
-    console.error(error);
-}
+    handleSuccess(videoEl, stream) {
+        videoEl.src = window.URL.createObjectURL(stream);
+    }
 
-export default function init (nav, videoEl) {
-    nav.getUserMedia = nav.webkitGetUserMedia
-    nav.getUserMedia(constrains, stream => handleSuccess(videoEl, stream), handleError)
+    handleError(e) {
+        console.error(e);
+    }
 }
