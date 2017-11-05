@@ -89,3 +89,16 @@ h1, p {
     margin: 0;
   }
 }
+
+#videoList{
+  display: flex;
+  flex-direction: row;
+}
+
+.video-active {
+  border: 2px solid green;
+}
+
+.video-inactive {
+  border: 2px solid red;
+}

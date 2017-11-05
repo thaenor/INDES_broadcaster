@@ -3,9 +3,9 @@ import Camera from './video';
 window.addEventListener('DOMContentLoaded', _ => {
     function createVideoElement(parentEl, id){
         const newVideo = document.createElement('video')
-        newVideo.setAttribute('class', 'video')
+        newVideo.setAttribute('class', 'video-inactive')
         newVideo.setAttribute('id', id)
-        newVideo.setAttribute('width', 250)
+        newVideo.setAttribute('width', 210)
         newVideo.setAttribute('height', 120)
         newVideo.setAttribute('autoplay', true)
         parentEl.appendChild(newVideo)
@@ -24,9 +24,9 @@ window.addEventListener('DOMContentLoaded', _ => {
                         audio: false,
                         video: {
                             mandatory: {
-                                minWidth: 853,
+                                minWidth: 852,
                                 minHeight: 480,
-                                maxWidth: 853,
+                                maxWidth: 852,
                                 maxHeight: 480
                             },
                             optional: [{ sourceId: device.deviceId }]
