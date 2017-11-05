@@ -18,28 +18,29 @@
 
     <article class="content">
       Live stream...
+      <video class="video-active" width="852" height="480" autoplay></video>
     </article>
 
     <div class="block-a">
-      <iframe id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/chhksy7wmWY" frameborder="0"></iframe>
+      <iframe class="video-inactive" id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/chhksy7wmWY" frameborder="0"></iframe>
     </div>
     <div class="block-b">
       <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
       <button id="play" class="btn btn-default">Add</button>
       <div class="queue">
-        <ul id="YTqueue" class="queueList">
+        <ul id="YTqueue" class="queue">
           <li class="queueItem">
             Youtube Item List
           </li>
       </div>
     </div>
     <div class="block-c">
-      <video class="video" id="CurrentLocalvideo" width="250" height="120" autoplay />
+      <video class="video-inactive" id="CurrentLocalvideo" width="250" height="120" autoplay />
     </div>
     <div class="block-d">
-      <input id="localToQueue" type="file" placeholder="paste youtube URL" />
+      <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
       <div class="queue">
-        <ul id="YTqueue" class="queueList">
+        <ul id="LocalQueue" class="queue">
           <li class="queueItem">
             Local Item List
           </li>

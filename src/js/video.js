@@ -1,6 +1,6 @@
 export default class Camera {
     constructor(constrains){
-        this.constrains = constrains;
+        this.constrains = constrains
     }
 
     init(domEl) {
@@ -11,10 +11,10 @@ export default class Camera {
     }
 
     handleSuccess(videoEl, stream) {
-        videoEl.src = window.URL.createObjectURL(stream);
+        videoEl.src = window.URL.createObjectURL(stream)
     }
 
     handleError(e) {
-        console.error(e);
+        console.error(e)
     }
 }

@@ -1,5 +1,6 @@
-import Camera from './video';
-import fs from 'fs';
+import Camera from './video'
+import LocalList from './LocalList'
+import fs from 'fs'
 
 window.addEventListener('DOMContentLoaded', _ => {
     function createVideoElement(parentEl, id){
@@ -15,7 +16,7 @@ window.addEventListener('DOMContentLoaded', _ => {
 
     //Get all cameras
     const videoList = document.getElementById('videoList')
-    let cameraArray = [];
+    let cameraArray = []
     navigator.mediaDevices.enumerateDevices()
         .then(devices => {
             devices.forEach((device, i) => {
@@ -40,7 +41,7 @@ window.addEventListener('DOMContentLoaded', _ => {
             });
         })
         .catch(function(err) {
-            console.error(err);
+            console.error(err)
         });
 
     //Youtube Video Queue event
@@ -50,22 +51,24 @@ window.addEventListener('DOMContentLoaded', _ => {
         }
         const ytVideo = document.getElementById('youtubeURLToQueue').value;
 
-             ytVideo.replace('watch?v=', 'embed/');
+             ytVideo.replace('watch?v=', 'embed/')
              var validateUrl = ytVideo.replace("watch?v=", "embed/"); //replace to "embed/", so any yt link work
-             validateUrl = validateUrl + '?autoplay=1';
+             validateUrl = validateUrl + '?autoplay=1'
              const ytLink = validateUrl; //new const created because replace only works for var
-             console.log('Watching: ' + ytLink);
+             console.log('Watching: ' + ytLink)
              document.getElementById('youtubeFrame').src = ytLink;
-         //  window.frames['youtubeFrame'].location.href.reload() //force refresh iFrame, not needed I guess
+             //  window.frames['youtubeFrame'].location.href.reload() //force refresh iFrame, not needed I guess
 
              const q = document.getElementById('YTqueue')
              const li = document.createElement("li")
-             li.appendChild(document.createTextNode(ytLink));
-             q.appendChild(li);
-         })
+             li.appendChild(document.createTextNode(ytLink))
+             q.appendChild(li)
+        })
 
+    const localL = new LocalList([])
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
-        document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`;
+        localL.addToList(_.target.files[0])
+        document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
 });

@@ -95,6 +95,10 @@ h1, p {
   flex-direction: row;
 }
 
+.queue {
+  font-size: 1rem;
+  list-style-image: url('../assets/cross.png');
+}
 .video-active {
   border: 2px solid green;
 }
