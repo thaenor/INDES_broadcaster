@@ -4,7 +4,12 @@
 <head>
   <meta charset="utf-8">
   <title>BroadCaster</title>
-  <link rel="stylesheet" href="./css/master.css">
+  <link rel="stylesheet" href="./css/master.css"/>
+  <link rel="stylesheet" href="../vendor/jquery-ui.min.css"/>
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+  <script src="../vendor/jquery-3.2.1.min.js"></script>
+  <script src="../vendor/jquery-ui.min.js"></script>
+  <script>if (window.module) module = window.module;</script>
 </head>
 
 <body>
@@ -22,7 +27,8 @@
     </article>
 
     <div class="block-a">
-      <iframe class="video-inactive" id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/chhksy7wmWY" frameborder="0"></iframe>
+      <iframe class="video-inactive" id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/chhksy7wmWY"
+        frameborder="0"></iframe>
     </div>
     <div class="block-b">
       <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
@@ -44,6 +50,23 @@
           <li class="queueItem">
             Local Item List
           </li>
+        </ul>
+        <ul id="sortable">
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+          <li class="ui-state-default">
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+        </ul>
       </div>
     </div>
     <footer class="footer">Made with ❤️ in Electron</footer>

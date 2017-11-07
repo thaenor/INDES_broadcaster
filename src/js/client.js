@@ -71,4 +71,7 @@ window.addEventListener('DOMContentLoaded', _ => {
         localL.addToList(_.target.files[0])
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
+
+    $("#sortable").sortable()
+    $("#sortable").disableSelection()
 });
