@@ -3,7 +3,6 @@
 }
 
 body {
-  margin: 40px;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #fff;
   color: #444;
@@ -34,7 +33,6 @@ h1, p {
   }
 
   .wrapper {
-    margin: 0 auto;
     grid-template-columns: 1fr 3fr;
     grid-auto-rows: minmax(150px, auto);
   }
