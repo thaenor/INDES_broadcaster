@@ -7,14 +7,21 @@ import LocalList from './LocalList'
 import YoutubeList from './youtubeList';
 
 window.addEventListener('DOMContentLoaded', _ => {
+    loadPlaceholder()
     initCameras()
     initYoutube()
     intiLocalPlayer()
     createYoutubePlayerList()
-    createLocalPlayerList()
-    // $("#sortable").sortable()
-    // $("#sortable").disableSelection()
 });
+
+function loadPlaceholder() {
+    const p = document.getElementById('PlaceholderSelector')
+    p.addEventListener('change', _ => {
+        const path = _.target.files[0].path
+        $('#PlaceholderSelector').remove();
+        $('#LiveStreamArea').append(`<img src="${_.target.files[0].path}" alt="your logo" height="550" width="480">`)
+    })
+}
 
 function createVideoElement(parentEl, id) {
     const newVideo = document.createElement('video')
