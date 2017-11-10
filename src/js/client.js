@@ -63,7 +63,7 @@ function initCameras() {
  * https://www.npmjs.com/package/youtube-player
  */
 function initYoutube(){
-    signin()
+    //signin()
     let player;
     player = YouTubePlayer('player');
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
@@ -104,25 +104,24 @@ function intiLocalPlayer() {
 }
 
 function createYoutubePlayerList() {
-    let ytList = []
+    let ytList = ['youtube Dev Tutorial']
     const yt = new YoutubeList(ytList,'#YTqueue')
-    //Youtube Video Queue event
-    // document.getElementById('play').addEventListener('click', _ => {
-    //     //TODO: error alternatives: "" or invalid link
-    //     if (document.getElementById('youtubeURLToQueue').value === "") {
-    //         return alert('sorry, I don\'t recognize this as a youtube link')
-    //     }
-    //     const ytVideo = document.getElementById('youtubeURLToQueue').value;
-    //     const q = document.getElementById('YTqueue')
-    //     const li = document.createElement("li")
-    //     li.appendChild(document.createTextNode(ytLink))
-    //     q.appendChild(li)
-    //     li.onclick = function () {
-    //         this.parentNode.removeChild(this); //removes the items from the list
-    //     }
-    // })
+    youtubeEvent(yt)
 }
 
 function createLocalPlayerList() {
 
+}
+
+function youtubeEvent(yt) {
+    //Youtube Video Queue event
+    document.getElementById('YoutubeAddToList').addEventListener('click', _ => {
+        //TODO: error alternatives: "" or invalid link
+        if (document.getElementById('youtubeURLToQueue').value === "") {
+            return alert('sorry, I don\'t recognize this as a youtube link')
+        }
+        //TODO: accept more than the youtube video ID in a way you can get the video name
+        const ytVideo = document.getElementById('youtubeURLToQueue').value;
+        yt.addToList(ytVideo)
+    })
 }
