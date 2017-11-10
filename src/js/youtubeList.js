@@ -2,7 +2,9 @@ export default class YtList {
     constructor(items, element) {
         this.items = items
         this.element = element
-        $(this.element).sortable()
+        $(this.element).sortable({
+            update: (event, ui) => this.reorderElement(event, ui)
+        })
         $(this.element).disableSelection()
     }
 
@@ -26,8 +28,8 @@ export default class YtList {
         this.items = []
     }
 
-    reorderElement(item, newPos) {
-        //TODO...
+    reorderElement(event, ui) {
+        return this.items = $(this.element).sortable('toArray');
     }
 
     removeVideo(video) {

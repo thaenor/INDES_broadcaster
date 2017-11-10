@@ -65,7 +65,7 @@ function initCameras() {
 function initYoutube(){
     //signin()
     let player;
-    player = YouTubePlayer('player');
+    player = YouTubePlayer('player', { width: 250, height: 120 });
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
     player.loadVideoById('M7lc1UVf-VE');
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
@@ -95,7 +95,11 @@ function signin() {
 }
 
 function intiLocalPlayer() {
-    const localL = new LocalList([])
+    let localL = []
+    const ll = new LocalList(localL, '#LocalQueue')
+    ll.addToList('teste')
+    ll.addToList('test2')
+    ll.addToList('test3')
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
         localL.addToList(_.target.files[0].path)
@@ -104,16 +108,11 @@ function intiLocalPlayer() {
 }
 
 function createYoutubePlayerList() {
-    let ytList = ['youtube Dev Tutorial']
+    let ytList = []
     const yt = new YoutubeList(ytList,'#YTqueue')
-    youtubeEvent(yt)
-}
-
-function createLocalPlayerList() {
-
-}
-
-function youtubeEvent(yt) {
+    yt.addToList('mg2cMqW_hOY')
+    yt.addToList('L_XJ_s5IsQc')
+    yt.addToList('j_rOAmnISzE')
     //Youtube Video Queue event
     document.getElementById('YoutubeAddToList').addEventListener('click', _ => {
         //TODO: error alternatives: "" or invalid link
@@ -122,6 +121,6 @@ function youtubeEvent(yt) {
         }
         //TODO: accept more than the youtube video ID in a way you can get the video name
         const ytVideo = document.getElementById('youtubeURLToQueue').value;
-        yt.addToList(ytVideo)
+        ytList = yt.addToList(ytVideo)
     })
 }
