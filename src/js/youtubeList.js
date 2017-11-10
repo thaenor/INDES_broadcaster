@@ -1,4 +1,4 @@
-export default class LocalList {
+export default class YtList {
     constructor(items, element) {
         this.items = items
         this.element = element
@@ -14,21 +14,21 @@ export default class LocalList {
         return this.items;
     }
 
-    renderAddToList(label){
-        const DomQ = document.getElementById('LocalQueue')
+    renderAddToList(label) {
+        const DomQ = document.getElementById('YTqueue')
         const newitem = document.createElement('li')
-        newitem.setAttribute('class','ui-state-default')
+        newitem.setAttribute('class', 'ui-state-default')
         newitem.innerHTML = `<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${label}`
         DomQ.appendChild(newitem)
         $(this.element).sortable('refresh');
     }
 
     clear() {
-        document.getElementById('LocalQueue').innerHTML = ""
+        document.getElementById('YTqueue').innerHTML = ""
         this.items = []
     }
 
-    reorderElement(item, newPos) {
+    reorderElement(event, ui) {
         return this.items = $(this.element).sortable('toArray');
     }
 
