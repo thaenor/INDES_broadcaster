@@ -7,6 +7,10 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+});
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -17,7 +21,7 @@ const createWindow = () => {
     width: 1200,
     height: 725,
     resizable: true,
-    frame: false
+    frame: true
   });
 
   // and load the index.html of the app.
