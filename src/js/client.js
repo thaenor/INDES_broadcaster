@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', _ => {
     intiLocalPlayer()
     createYoutubePlayerList()
     createLocalPlayerList()
+
     // $("#sortable").sortable()
     // $("#sortable").disableSelection()
 });
@@ -57,12 +58,9 @@ function initCameras() {
         .catch(function (err) {
             console.error(err)
         });
-
-        //Ip live stream camera (maybe in another place)
-        const StreamLive = document.getElementById('stream')
-        StreamLive.src="http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
-        //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
-        
+    
+        //init live ip cam
+        initLiveIpCam()
 }
 
 
@@ -141,4 +139,12 @@ function createYoutubePlayerList() {
         const ytVideo = document.getElementById('youtubeURLToQueue').value;
         ytList = yt.addToList(ytVideo)
     })
+}
+
+function initLiveIpCam(){
+    //Ip live stream camera (maybe in another place)
+    const StreamLive = document.getElementById('stream')
+    StreamLive.src="http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+    console.log('Stream now running')
+    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
 }
