@@ -1,30 +1,17 @@
-import Camera from './video'
-import LocalList from './LocalList'
 import fs from 'fs'
 import YouTubePlayer from 'youtube-player'
+import YoutubeStrategy from 'passport-youtube-v3'
+import passport from 'passport'
+import Camera from './video'
+import LocalList from './LocalList'
+import YoutubeList from './youtubeList';
 
 window.addEventListener('DOMContentLoaded', _ => {
-    initCameras();
-    initYoutube();
-    intiLocalPlayer();
-
-    //Youtube Video Queue event
-    document.getElementById('play').addEventListener('click', _ => {
-        //TODO: error alternatives: "" or invalid link
-        if(document.getElementById('youtubeURLToQueue').value === ""){
-            return alert('sorry, I don\'t recognize this as a youtube link')
-        }
-        const ytVideo = document.getElementById('youtubeURLToQueue').value;
-             const q = document.getElementById('YTqueue')
-             const li = document.createElement("li")
-             li.appendChild(document.createTextNode(ytLink))
-             q.appendChild(li)
-             li.onclick = function() {
-                this.parentNode.removeChild(this); //removes the items from the list
-              }
-        })
-
-
+    initCameras()
+    initYoutube()
+    intiLocalPlayer()
+    createYoutubePlayerList()
+    createLocalPlayerList()
     // $("#sortable").sortable()
     // $("#sortable").disableSelection()
 });
@@ -76,6 +63,7 @@ function initCameras() {
  * https://www.npmjs.com/package/youtube-player
  */
 function initYoutube(){
+    signin()
     let player;
     player = YouTubePlayer('player');
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
@@ -88,6 +76,26 @@ function initYoutube(){
         .then(() => {
             // Every function returns a promise that is resolved after the target function has been executed. 
         });
+    
+    setTimeout(() => {
+        player.loadVideoById('aMqhO4cs09w');
+    }, 5000);
+}
+
+function signin() {
+    const YoutubeV3Strategy = YoutubeStrategy.Strategy
+    passport.use(new YoutubeV3Strategy({
+        clientID: "841148065998-fklms1k94oo4tmed39save0er1urv5ug.apps.googleusercontent.com",
+        clientSecret: "ldDi2FpW-FeNgOniKrAv2kjh",
+        callbackURL: "http://localhost:3000/auth/youtube/callback",
+        scope: ['https://www.googleapis.com/auth/youtube.readonly']
+    },
+        function (accessToken, refreshToken, profile, done) {
+            User.findOrCreate({ userId: profile.id }, function (err, user) {
+                return done(err, user);
+            });
+        }
+    ));
 }
 
 function intiLocalPlayer() {
@@ -97,4 +105,28 @@ function intiLocalPlayer() {
         localL.addToList(_.target.files[0].path)
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
+}
+
+function createYoutubePlayerList() {
+    let ytList = []
+    const yt = new YoutubeList(ytList,'#YTqueue')
+    //Youtube Video Queue event
+    // document.getElementById('play').addEventListener('click', _ => {
+    //     //TODO: error alternatives: "" or invalid link
+    //     if (document.getElementById('youtubeURLToQueue').value === "") {
+    //         return alert('sorry, I don\'t recognize this as a youtube link')
+    //     }
+    //     const ytVideo = document.getElementById('youtubeURLToQueue').value;
+    //     const q = document.getElementById('YTqueue')
+    //     const li = document.createElement("li")
+    //     li.appendChild(document.createTextNode(ytLink))
+    //     q.appendChild(li)
+    //     li.onclick = function () {
+    //         this.parentNode.removeChild(this); //removes the items from the list
+    //     }
+    // })
+}
+
+function createLocalPlayerList() {
+
 }

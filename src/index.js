@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from 'electron';
+import url from 'url'
+import path from 'path'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -14,11 +16,16 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 725,
-    resizable: true
+    resizable: true,
+    frame: false
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
