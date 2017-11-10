@@ -70,6 +70,34 @@ function initCameras() {
         .catch(function (err) {
             console.error(err)
         });
+
+        const StreamLive = document.getElementById('stream')
+        StreamLive.src="http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+        //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
+        
+}
+
+function ipLiveStreams(parentEl, id){
+    const newStream = document.createElement('img')
+    const source= "http://localhost/image.jpg?" + new Date().getTime();
+    newVideo.setAttribute('class', 'video-inactive')
+    newVideo.setAttribute('id', id)
+    newVideo.setAttribute('width', 210)
+    newVideo.setAttribute('height', 120)
+    newVideo.setAttribute('autoplay', true)
+    parentEl.appendChild(newVideo)
+    return newVideo;
+}
+
+function createVideoElement(parentEl, id) {
+    const newVideo = document.createElement('video')
+    newVideo.setAttribute('class', 'video-inactive')
+    newVideo.setAttribute('id', id)
+    newVideo.setAttribute('width', 210)
+    newVideo.setAttribute('height', 120)
+    newVideo.setAttribute('autoplay', true)
+    parentEl.appendChild(newVideo)
+    return newVideo;
 }
 
 /**
@@ -79,7 +107,7 @@ function initYoutube(){
     let player;
     player = YouTubePlayer('player');
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
-    player.loadVideoById('M7lc1UVf-VE');
+    player.loadVideoById('OycD-xi4RdE');
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
     player.playVideo();
     // 'stopVideo' is queued after 'playVideo'. 

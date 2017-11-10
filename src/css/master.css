@@ -22,7 +22,7 @@ h1, p {
 @media screen and (min-width: 600px) {
 
   /* no grid support? */
-  .block-a, .block-b, .block-c {
+  .block-a, .block-b, .block-c, .block-e, .block-f {
     float: left;
     width: 19.1489%;
   }
@@ -59,6 +59,16 @@ h1, p {
   }
 
   .block-d {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  .block-e {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  .block-f {
     grid-column: 1;
     grid-row: 6;
   }
