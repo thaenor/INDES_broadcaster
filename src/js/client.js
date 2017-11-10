@@ -76,10 +76,6 @@ function initYoutube(){
         .then(() => {
             // Every function returns a promise that is resolved after the target function has been executed. 
         });
-    
-    setTimeout(() => {
-        player.loadVideoById('aMqhO4cs09w');
-    }, 5000);
 }
 
 function signin() {
