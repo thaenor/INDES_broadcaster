@@ -24,36 +24,38 @@
   <header id="videoList" class="col-md-12 content"></header>
 
   <!-- left Sidebar section -->
-  <div class="col-md-3 content">
+  <aside class="col-md-3 content">
     <!--Youtube API player (iFrame API) -->
     <div id="player"></div>
 
     <!-- Youtube List section -->
-    <div class="">
-      <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
-      <button id="YoutubeAddToList" class="btn btn-default">Add</button>
+    <section>
       <div class="queue">
         <ul id="YTqueue" class="queue">
           <!--<li class="ui-state-default">
-                    <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>-->
+            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>-->
         </ul>
       </div>
+      <hr/>
+      <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
+      <button id="YoutubeAddToList" class="btn btn-default">Add</button>
+    </section>
 
-      <!-- local video play area -->
-      <div class="">
-        <video class="video-inactive" id="CurrentLocalvideo" width="250" height="120" autoplay controls />
-      </div>
-
-      <!-- local video list section -->
-      <div class="">
-        <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
-        <div class="queue">
-          <ul id="LocalQueue" class="queue">
-          </ul>
-        </div>
-      </div>
+    <!-- local video play area -->
+    <div class="">
+      <video class="video-inactive" id="CurrentLocalvideo" width="250" height="120" autoplay controls />
     </div>
-  </div>
+
+    <!-- local video list section -->
+    <div class="">
+      <div class="queue">
+        <ul id="LocalQueue" class="queue">
+        </ul>
+      </div>
+      <hr/>
+      <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
+    </div>
+  </aside>
 
   <!-- Live Section -->
   <article id="LiveStreamArea" class="col-md-6">
@@ -63,9 +65,9 @@
   </article>
 
   <!-- IP Camera Area -->
-  <div class="col-md-3 content">
+  <aside class="col-md-3 content">
     <iframe id="stream" width="250" height="300" />
-  </div>
+  </aside>
 
   <footer class="col-lg-12 well">Made with ❤️ in Electron</footer>
   <script>

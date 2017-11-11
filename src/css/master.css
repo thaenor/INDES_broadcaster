@@ -15,9 +15,16 @@
 }
 
 .queue {
-  font-size: 1rem;
-  list-style-image: url('../assets/cross.png');
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10;
 }
+.queue > li {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  font-size: 1em;
+}
+
 .video-active {
   border: 2px solid green;
 }
