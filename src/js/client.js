@@ -9,6 +9,7 @@ import YoutubeList from './youtubeList';
 window.addEventListener('DOMContentLoaded', _ => {
     loadPlaceholder()
     initCameras()
+    initIPCameras()
     initYoutube()
     intiLocalPlayer()
     createYoutubePlayerList()
@@ -30,6 +31,16 @@ function createVideoElement(parentEl, id) {
     newVideo.setAttribute('width', 210)
     newVideo.setAttribute('height', 120)
     newVideo.setAttribute('autoplay', true)
+    newVideo.addEventListener('click', _ => {
+        if(newVideo.classList.contains('video-inactive')) {
+            newVideo.classList.remove("video-inactive")
+            newVideo.setAttribute('class', 'video-active')
+        } else {
+            newVideo.classList.remove("video-active")
+            newVideo.setAttribute('class', 'video-inactive')
+        }
+        document.getElementById('LiveStreamArea').setAttribute('src', newVideo.src)
+    })
     parentEl.appendChild(newVideo)
     return newVideo;
 }
@@ -63,25 +74,14 @@ function initCameras() {
         })
         .catch(function (err) {
             console.error(err)
-        });
-
-        //Ip live stream camera (maybe in another place)
-        const StreamLive = document.getElementById('stream')
-        StreamLive.src="http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
-        //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
-        
+        });        
 }
 
-
-function createVideoElement(parentEl, id) {
-    const newVideo = document.createElement('video')
-    newVideo.setAttribute('class', 'video-inactive')
-    newVideo.setAttribute('id', id)
-    newVideo.setAttribute('width', 210)
-    newVideo.setAttribute('height', 120)
-    newVideo.setAttribute('autoplay', true)
-    parentEl.appendChild(newVideo)
-    return newVideo;
+function initIPCameras() {
+    //Ip live stream camera (maybe in another place)
+    const StreamLive = document.getElementById('stream')
+    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
 }
 
 /**

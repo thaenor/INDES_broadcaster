@@ -18,8 +18,8 @@ let mainWindow;
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1250,
-    height: 800,
+    width: 1366,
+    height: 673,
     resizable: true,
     frame: true
   });
