@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>BroadCaster</title>
+  <link rel="stylesheet" href="../vendor/bootstrap.min.css" />
   <link rel="stylesheet" href="./css/master.css" />
   <link rel="stylesheet" href="../vendor/jquery-ui.min.css" />
   <script>
@@ -20,33 +21,26 @@
 </head>
 
 <body>
-  <div class="wrapper">
-    <header id="videoList" class="header">
-      <!-- ip webcam window, needs test -->
-      <!--<video class="video" id="video" width="250" height="120" autoplay></video>
-      <video autobuffer autoplay>
-        <source id="mp4" src="http://192.168.1.10:8080/java.html" />
-      </video>-->
-      <!-- LIVE STREAMS CAMERAS -->
-      <iframe id="stream" width="250" height="120" />
-    </header>
-
-    <article id="LiveStreamArea" class="content">
-      Live stream...
-      <input id="PlaceholderSelector" type="file" placeholder="choose your image" />
-      <video id="LiveStreamArea" autoplay></video>
-      <!-- width="550" height="480" -->
-    </article>
-
-    <div class="block-a">
-      <!-- old youtube player
-       src="https://www.youtube.com/embed/chhksy7wmWY" -->
-      <!--  <iframe class="video-inactive" id="youtubeFrame" width="250" height="120" src="https://www.youtube.com/embed/chhksy7wmWY"
-        frameborder="0"></iframe>  -->
+  <div class="">
+    <header id="videoList" class="col-lg-12 well"></header>
+    
+    <div class="col-lg-3 well">
       <!--Youtube API player (iFrame API) -->
       <div id="player"></div>
     </div>
-    <div class="block-b">
+
+    <article id="LiveStreamArea" class="col-lg-6 well">
+      Live stream...
+      <input id="PlaceholderSelector" type="file" placeholder="choose your image" />
+      <video id="LiveStreamArea" width="550" height="480" style="display: none" autoplay></video>
+    </article>
+
+    <div class="col-lg-3 well">
+      <iframe id="stream" width="250" height="120" />
+    </div>
+
+
+    <div class="col-lg-3 well">
       <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
       <button id="YoutubeAddToList" class="btn btn-default">Add</button>
       <div class="queue">
@@ -56,17 +50,22 @@
         </ul>
       </div>
     </div>
-    <div class="block-c">
+
+    <div class="col-lg-9">----</div>
+
+    <div class="col-lg-3 well">
       <video class="video-inactive" id="CurrentLocalvideo" width="250" height="120" autoplay controls />
     </div>
-    <div class="block-d">
+
+    <div class="col-lg-3 well">
       <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
       <div class="queue">
         <ul id="LocalQueue" class="queue">
         </ul>
       </div>
     </div>
-    <footer class="footer">Made with ❤️ in Electron</footer>
+
+    <footer class="col-lg-12 well">Made with ❤️ in Electron</footer>
   </div>
   <script>
     require('./js/client.js');
