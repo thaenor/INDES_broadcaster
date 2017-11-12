@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import YouTubePlayer from 'youtube-player'
 import YoutubeStrategy from 'passport-youtube-v3'
 import passport from 'passport'
@@ -46,7 +47,7 @@ function createVideoElement(parentEl, id) {
     newVideo.setAttribute('width', 210)
     newVideo.setAttribute('height', 120)
     newVideo.setAttribute('autoplay', true)
-    newVideo.addEventListener('click', (_, newVideo) => {
+    newVideo.addEventListener('click', _ => {
         if(newVideo.classList.contains('video-inactive')) {
             activateVideoStream(newVideo)
             document.getElementById('LiveStreamCamera').setAttribute('src', newVideo.src)
@@ -140,13 +141,34 @@ function signin() {
 
 function intiLocalPlayer() {
     ll = new LocalList('#LocalQueue')
-    ll.addToList('teste')
-    ll.addToList('test2')
-    ll.addToList('test3')
+    ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
+    ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
+    ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
         ll.addToList(_.target.files[0].path)
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
+    })
+    $('#playLocalVideo').click( _ => {
+        const vid = ll.popVideo()
+        document.getElementById('CurrentLocalvideo').src = `file://${vid}`
+        $('#playLocalVideo').remove()
+    })
+    const vid = document.getElementById('CurrentLocalvideo')
+    vid.onended = _ => {
+        const vid = ll.popVideo()
+        document.getElementById('CurrentLocalvideo').src = `file://${vid}`
+    }
+
+    $('#CurrentLocalvideo').click( _ => {
+        if ($('#CurrentLocalvideo').hasClass('video-inactive')) {
+            activateVideoStream($('#CurrentLocalvideo')[0])
+            document.getElementById('LiveStreamCamera').setAttribute('src', $('#CurrentLocalvideo')[0].src)
+        } else {
+            $('#CurrentLocalvideo').removeClass("video-active")
+            $('#CurrentLocalvideo').addClass('video-inactive')
+            document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
+        }
     })
 }
 

@@ -44,24 +44,6 @@
         <button id="YoutubeAddToList" class="btn btn-default">Add</button>
       </section>
     </section>
-
-    <!-- local video Area -->
-    <section id="LocalVideoArea" class="video-inactive area">
-      <!-- local video play area -->
-      <div class="">
-        <video id="CurrentLocalvideo" width="250" height="120" autoplay controls />
-      </div>
-
-      <!-- local video list section -->
-      <div class="">
-        <div class="queue">
-          <ul id="LocalQueue" class="queue">
-          </ul>
-        </div>
-        <hr/>
-        <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
-      </div>
-    </section>
   </aside>
 
   <!-- Live Section -->
@@ -75,6 +57,25 @@
   <aside id="IPCameraArea" class="col-md-3 content video-inactive area">
     <iframe id="stream" width="250" height="300" />
   </aside>
+
+  <!-- local video Area -->
+  <section id="LocalVideoArea" class="col-md-12 area">
+    <!-- local video play area -->
+    <div class="">
+      <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
+    </div>
+
+    <!-- local video list section -->
+    <div class="">
+      <button id="playLocalVideo" class="btn btn-default">Start</button>
+      <div class="queue">
+        <ul id="LocalQueue" class="queue">
+        </ul>
+      </div>
+      <hr/>
+      <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
+    </div>
+  </section>
 
   <footer class="col-lg-12 well">Made with ❤️ in Electron</footer>
   <script>

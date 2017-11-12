@@ -10,11 +10,11 @@ export default class LocalList {
 
     addToList(item) {
         this.items.push(item)
-        this.renderAddToList(item)
+        this.renderAddToList(item, `local-video-${this.items.indexOf(item)}`)
         return this.items;
     }
 
-    renderAddToList(label){
+    renderAddToList(label, id){
         const DomQ = document.getElementById('LocalQueue')
         const newitem = document.createElement('li')
         newitem.setAttribute('class','ui-state-default')
@@ -32,7 +32,9 @@ export default class LocalList {
         return this.items = $(this.element).sortable('toArray');
     }
 
-    removeVideo(video) {
-        //TODO...
+    popVideo() {
+        const videoToRemove = this.items.pop()
+        $(`li:contains('${videoToRemove}')`).remove()
+        return videoToRemove
     }
 }
