@@ -6,20 +6,36 @@ import Camera from './video'
 import LocalList from './LocalList'
 import YoutubeList from './youtubeList';
 
+let cameraArray= []
+let player
+let ytList = []
+let ll
+let yt
+
 window.addEventListener('DOMContentLoaded', _ => {
     loadPlaceholder()
     initCameras()
+    initIPCameras()
     initYoutube()
     intiLocalPlayer()
     createYoutubePlayerList()
 });
+
+function activateVideoStream(c) {
+    $('#cameraList').find('video').removeClass('video-active').addClass('video-inactive')
+    $('#YoutubeArea').removeClass('video-active').addClass('video-inactive')
+    $('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
+    $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
+    c.classList.remove("video-inactive")
+    c.setAttribute('class', 'video-active')
+}
 
 function loadPlaceholder() {
     const p = document.getElementById('PlaceholderSelector')
     p.addEventListener('change', _ => {
         const path = _.target.files[0].path
         $('#PlaceholderSelector').remove();
-        $('#LiveStreamArea').append(`<img src="${_.target.files[0].path}" alt="your logo" height="550" width="480">`)
+        document.getElementById('LiveStreamCamera').setAttribute('poster', _.target.files[0].path)
     })
 }
 
@@ -30,14 +46,23 @@ function createVideoElement(parentEl, id) {
     newVideo.setAttribute('width', 210)
     newVideo.setAttribute('height', 120)
     newVideo.setAttribute('autoplay', true)
+    newVideo.addEventListener('click', (_, newVideo) => {
+        if(newVideo.classList.contains('video-inactive')) {
+            activateVideoStream(newVideo)
+            document.getElementById('LiveStreamCamera').setAttribute('src', newVideo.src)
+        } else {
+            newVideo.classList.remove("video-active")
+            newVideo.setAttribute('class', 'video-inactive')
+            document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
+        }
+    })
     parentEl.appendChild(newVideo)
     return newVideo;
 }
 
 function initCameras() {
     //Get all cameras
-    const videoList = document.getElementById('videoList')
-    let cameraArray = []
+    const videoList = document.getElementById('cameraList')
     navigator.mediaDevices.enumerateDevices()
         .then(devices => {
             devices.forEach((device, i) => {
@@ -63,25 +88,14 @@ function initCameras() {
         })
         .catch(function (err) {
             console.error(err)
-        });
-
-        //Ip live stream camera (maybe in another place)
-        const StreamLive = document.getElementById('stream')
-        StreamLive.src="http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
-        //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
-        
+        });        
 }
 
-
-function createVideoElement(parentEl, id) {
-    const newVideo = document.createElement('video')
-    newVideo.setAttribute('class', 'video-inactive')
-    newVideo.setAttribute('id', id)
-    newVideo.setAttribute('width', 210)
-    newVideo.setAttribute('height', 120)
-    newVideo.setAttribute('autoplay', true)
-    parentEl.appendChild(newVideo)
-    return newVideo;
+function initIPCameras() {
+    //Ip live stream camera (maybe in another place)
+    const StreamLive = document.getElementById('stream')
+    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
 }
 
 /**
@@ -89,18 +103,23 @@ function createVideoElement(parentEl, id) {
  */
 function initYoutube(){
     //signin()
-    let player;
-    player = YouTubePlayer('player', { width: 250, height: 120 });
+    player = YouTubePlayer('player', { width: 250, height: 120 })
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
-    player.loadVideoById('aMqhO4cs09w');
+    player.loadVideoById('_JaYTaBIWDU')
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
-    player.playVideo();
+    // player.playVideo();
     // 'stopVideo' is queued after 'playVideo'. 
     player
         .stopVideo()
         .then(() => {
             // Every function returns a promise that is resolved after the target function has been executed. 
         });
+    player.on('stateChange', (event) => {
+        if(event.data === 0) {
+            const newVid = yt.popVideo()
+            player.loadVideoById(newVid)
+        }
+    });
 }
 
 function signin() {
@@ -120,21 +139,19 @@ function signin() {
 }
 
 function intiLocalPlayer() {
-    let localL = []
-    const ll = new LocalList(localL, '#LocalQueue')
+    ll = new LocalList('#LocalQueue')
     ll.addToList('teste')
     ll.addToList('test2')
     ll.addToList('test3')
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
-        localL.addToList(_.target.files[0].path)
+        ll.addToList(_.target.files[0].path)
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
 }
 
 function createYoutubePlayerList() {
-    let ytList = []
-    const yt = new YoutubeList(ytList,'#YTqueue')
+    yt = new YoutubeList(ytList,'#YTqueue')
     yt.addToList('mg2cMqW_hOY')
     yt.addToList('L_XJ_s5IsQc')
     yt.addToList('j_rOAmnISzE')

@@ -17,6 +17,7 @@ export default class YtList {
     renderAddToList(label) {
         const DomQ = document.getElementById('YTqueue')
         const newitem = document.createElement('li')
+        newitem.setAttribute('id', label)
         newitem.setAttribute('class', 'ui-state-default')
         newitem.innerHTML = `<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${label}`
         DomQ.appendChild(newitem)
@@ -32,7 +33,9 @@ export default class YtList {
         return this.items = $(this.element).sortable('toArray');
     }
 
-    removeVideo(video) {
-        //TODO...
+    popVideo() {
+        const videoToRemove = this.items.pop()
+        $(`#${videoToRemove}`).remove()
+        return videoToRemove
     }
 }
