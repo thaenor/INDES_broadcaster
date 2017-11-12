@@ -1,6 +1,6 @@
 export default class LocalList {
-    constructor(items, element) {
-        this.items = items
+    constructor(element) {
+        this.items = []
         this.element = element
         $(this.element).sortable({
             update: (event, ui) => this.reorderElement(event, ui)

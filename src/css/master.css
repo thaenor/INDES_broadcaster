@@ -25,6 +25,11 @@
   font-size: 1em;
 }
 
+.area {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
 .video-active {
   border: 2px solid green;
 }
