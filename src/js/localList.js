@@ -20,7 +20,7 @@ export default class LocalList {
         newitem.setAttribute('class','ui-state-default')
         newitem.innerHTML = `<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>${label}`
         DomQ.appendChild(newitem)
-        $(this.element).sortable('refresh');
+        $(this.element).sortable('refresh')
     }
 
     clear() {
@@ -29,7 +29,10 @@ export default class LocalList {
     }
 
     reorderElement(item, newPos) {
-        return this.items = $(this.element).sortable('toArray');
+        console.log(this.items)
+        this.items = $(this.element).sortable('toArray')
+        console.log(this.items)
+        return this.items
     }
 
     popVideo() {
