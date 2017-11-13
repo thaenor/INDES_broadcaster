@@ -95,7 +95,9 @@ function initCameras() {
 function initIPCameras() {
     //Ip live stream camera (maybe in another place)
     const StreamLive = document.getElementById('stream')
-    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+
+    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
+    //"http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
     //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
 }
 
@@ -188,3 +190,39 @@ function createYoutubePlayerList() {
         ytList = yt.addToList(ytVideo)
     })
 }
+
+
+// IPCAM - change cameras by clicking the list elements 
+
+function changeIPCameras(link) {
+   
+    const StreamLive = document.getElementById('stream')
+
+    StreamLive.src = link
+   
+}
+
+
+var ul = document.getElementById('ipList');  // Parent
+
+ul.addEventListener('click', function(e) {
+    if (e.target.tagName === 'LI'){
+     // alert(e.target.id);  // Check if the element is a LI
+     switch(e.target.id){
+        case "1": changeIPCameras("http://96.10.1.168/mjpg/1/video.mjpg")
+            break;
+        case "2": changeIPCameras("http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
+            break;
+        case "3": changeIPCameras("http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
+            break;
+        case "4": changeIPCameras("http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link")
+            break;
+        case "5": changeIPCameras("http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link")
+            break;
+        case "6": changeIPCameras("http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link")
+            break;
+        case "7": changeIPCameras("http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link")
+            break;
+     }
+    }
+});

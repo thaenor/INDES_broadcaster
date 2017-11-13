@@ -7,9 +7,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
-require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-});
+//require('electron-reload')(__dirname, {
+//  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+//});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -32,7 +32,7 @@ const createWindow = () => {
   }))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindowmainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
