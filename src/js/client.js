@@ -143,9 +143,9 @@ function signin() {
 
 function intiLocalPlayer() {
     ll = new LocalList('#LocalQueue')
-    ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
-    ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
-    ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
         ll.addToList(_.target.files[0].path)
@@ -176,9 +176,9 @@ function intiLocalPlayer() {
 
 function createYoutubePlayerList() {
     yt = new YoutubeList(ytList,'#YTqueue')
-    yt.addToList('mg2cMqW_hOY')
-    yt.addToList('L_XJ_s5IsQc')
-    yt.addToList('j_rOAmnISzE')
+    //yt.addToList('mg2cMqW_hOY')
+    //yt.addToList('L_XJ_s5IsQc')
+    //yt.addToList('j_rOAmnISzE')
     //Youtube Video Queue event
     document.getElementById('YoutubeAddToList').addEventListener('click', _ => {
         //TODO: error alternatives: "" or invalid link
