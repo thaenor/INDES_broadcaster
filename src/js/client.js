@@ -10,8 +10,7 @@ import YoutubeList from './youtubeList';
 let cameraArray = []
 let player
 let ytList = []
-let ll
-let yt
+let ll, yt, currentYoutubeVideo, livePlayerState
 
 window.addEventListener('DOMContentLoaded', _ => {
     loadPlaceholder()
@@ -27,6 +26,8 @@ function activateVideoStream(c) {
     $('#YoutubeArea').removeClass('video-active').addClass('video-inactive')
     $('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
     $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
+    $('#YoutubeCacete').addClass('ninja')
+    $('#LiveStreamCamera').removeClass('ninja')
     c.classList.remove("video-inactive")
     c.setAttribute('class', 'video-active')
 }
@@ -101,10 +102,12 @@ function initYoutube() {
     //signin()
     player = YouTubePlayer('player', {
         width: 250,
-        height: 120
+        height: 120,
+        videoId: 'M7lc1UVf-VE'
     })
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
     player.loadVideoById('_JaYTaBIWDU')
+    currentYoutubeVideo = '_JaYTaBIWDU'
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
     // player.playVideo();
     // 'stopVideo' is queued after 'playVideo'. 
@@ -116,9 +119,22 @@ function initYoutube() {
     player.on('stateChange', (event) => {
         if (event.data === 0) {
             const newVid = yt.popVideo()
+            currentYoutubeVideo = newVid
             player.loadVideoById(newVid)
         }
     });
+
+    $('#YoutubeArea').click( _ => {
+        $('#LiveStreamCamera').addClass('ninja')
+        $('#YoutubeCacete').removeClass('ninja')
+        $('#YoutubeCacete').addClass('video-active')
+        livePlayerState = document.getElementById('YoutubeCacete')
+        let player2 = YouTubePlayer('YoutubeCacete', {
+            width: 650,
+            height: 400,
+            videoId: currentYoutubeVideo
+        })
+    })
 }
 
 function signin() {

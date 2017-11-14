@@ -37,3 +37,7 @@
 .video-inactive {
   border: 2px solid red;
 }
+
+.ninja {
+  display: none;
+}
