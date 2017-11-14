@@ -32,7 +32,7 @@ const createWindow = () => {
   }))
 
   // Open the DevTools.
-  //mainWindowmainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
