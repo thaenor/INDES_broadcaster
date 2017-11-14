@@ -4,7 +4,7 @@ import YouTubePlayer from 'youtube-player'
 import YoutubeStrategy from 'passport-youtube-v3'
 import passport from 'passport'
 import Camera from './video'
-import LocalList from './LocalList'
+import LocalList from './localList'
 import YoutubeList from './youtubeList';
 
 let cameraArray= []
