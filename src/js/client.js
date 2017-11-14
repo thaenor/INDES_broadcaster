@@ -7,7 +7,7 @@ import Camera from './video'
 import LocalList from './localList'
 import YoutubeList from './youtubeList';
 
-let cameraArray= []
+let cameraArray = []
 let player
 let ytList = []
 let ll
@@ -48,7 +48,7 @@ function createVideoElement(parentEl, id) {
     newVideo.setAttribute('height', 120)
     newVideo.setAttribute('autoplay', true)
     newVideo.addEventListener('click', _ => {
-        if(newVideo.classList.contains('video-inactive')) {
+        if (newVideo.classList.contains('video-inactive')) {
             activateVideoStream(newVideo)
             document.getElementById('LiveStreamCamera').setAttribute('src', newVideo.src)
         } else {
@@ -78,7 +78,9 @@ function initCameras() {
                                 maxWidth: 852,
                                 maxHeight: 480
                             },
-                            optional: [{ sourceId: device.deviceId }]
+                            optional: [{
+                                sourceId: device.deviceId
+                            }]
                         }
                     };
                     const c = new Camera(constrains)
@@ -89,24 +91,18 @@ function initCameras() {
         })
         .catch(function (err) {
             console.error(err)
-        });        
-}
-
-function initIPCameras() {
-    //Ip live stream camera (maybe in another place)
-    const StreamLive = document.getElementById('stream')
-
-    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
-    //"http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
-    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
+        });
 }
 
 /**
  * https://www.npmjs.com/package/youtube-player
  */
-function initYoutube(){
+function initYoutube() {
     //signin()
-    player = YouTubePlayer('player', { width: 250, height: 120 })
+    player = YouTubePlayer('player', {
+        width: 250,
+        height: 120
+    })
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
     player.loadVideoById('_JaYTaBIWDU')
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
@@ -118,7 +114,7 @@ function initYoutube(){
             // Every function returns a promise that is resolved after the target function has been executed. 
         });
     player.on('stateChange', (event) => {
-        if(event.data === 0) {
+        if (event.data === 0) {
             const newVid = yt.popVideo()
             player.loadVideoById(newVid)
         }
@@ -128,13 +124,15 @@ function initYoutube(){
 function signin() {
     const YoutubeV3Strategy = YoutubeStrategy.Strategy
     passport.use(new YoutubeV3Strategy({
-        clientID: "841148065998-fklms1k94oo4tmed39save0er1urv5ug.apps.googleusercontent.com",
-        clientSecret: "ldDi2FpW-FeNgOniKrAv2kjh",
-        callbackURL: "http://localhost:3000/auth/youtube/callback",
-        scope: ['https://www.googleapis.com/auth/youtube.readonly']
-    },
+            clientID: "841148065998-fklms1k94oo4tmed39save0er1urv5ug.apps.googleusercontent.com",
+            clientSecret: "ldDi2FpW-FeNgOniKrAv2kjh",
+            callbackURL: "http://localhost:3000/auth/youtube/callback",
+            scope: ['https://www.googleapis.com/auth/youtube.readonly']
+        },
         function (accessToken, refreshToken, profile, done) {
-            User.findOrCreate({ userId: profile.id }, function (err, user) {
+            User.findOrCreate({
+                userId: profile.id
+            }, function (err, user) {
                 return done(err, user);
             });
         }
@@ -151,7 +149,7 @@ function intiLocalPlayer() {
         ll.addToList(_.target.files[0].path)
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
-    $('#playLocalVideo').click( _ => {
+    $('#playLocalVideo').click(_ => {
         const vid = ll.popVideo()
         document.getElementById('CurrentLocalvideo').src = `file://${vid}`
         $('#playLocalVideo').remove()
@@ -162,7 +160,7 @@ function intiLocalPlayer() {
         document.getElementById('CurrentLocalvideo').src = `file://${vid}`
     }
 
-    $('#CurrentLocalvideo').click( _ => {
+    $('#CurrentLocalvideo').click(_ => {
         if ($('#CurrentLocalvideo').hasClass('video-inactive')) {
             activateVideoStream($('#CurrentLocalvideo')[0])
             document.getElementById('LiveStreamCamera').setAttribute('src', $('#CurrentLocalvideo')[0].src)
@@ -175,7 +173,7 @@ function intiLocalPlayer() {
 }
 
 function createYoutubePlayerList() {
-    yt = new YoutubeList(ytList,'#YTqueue')
+    yt = new YoutubeList(ytList, '#YTqueue')
     //yt.addToList('mg2cMqW_hOY')
     //yt.addToList('L_XJ_s5IsQc')
     //yt.addToList('j_rOAmnISzE')
@@ -195,34 +193,48 @@ function createYoutubePlayerList() {
 // IPCAM - change cameras by clicking the list elements 
 
 function changeIPCameras(link) {
-   
+
     const StreamLive = document.getElementById('stream')
 
     StreamLive.src = link
-   
+
 }
 
+function initIPCameras() {
+    //Ip live stream camera (maybe in another place)
+    const StreamLive = document.getElementById('stream')
 
-var ul = document.getElementById('ipList');  // Parent
+    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
+    //"http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
+    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
+    var ul = document.getElementById('ipList'); // Parent
 
-ul.addEventListener('click', function(e) {
-    if (e.target.tagName === 'LI'){
-     // alert(e.target.id);  // Check if the element is a LI
-     switch(e.target.id){
-        case "1": changeIPCameras("http://96.10.1.168/mjpg/1/video.mjpg")
-            break;
-        case "2": changeIPCameras("http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
-            break;
-        case "3": changeIPCameras("http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
-            break;
-        case "4": changeIPCameras("http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link")
-            break;
-        case "5": changeIPCameras("http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link")
-            break;
-        case "6": changeIPCameras("http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link")
-            break;
-        case "7": changeIPCameras("http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link")
-            break;
-     }
-    }
-});
+    ul.addEventListener('click', function (e) {
+        if (e.target.tagName === 'LI') {
+            // alert(e.target.id);  // Check if the element is a LI
+            switch (e.target.id) {
+                case "1":
+                    changeIPCameras("http://96.10.1.168/mjpg/1/video.mjpg")
+                    break;
+                case "2":
+                    changeIPCameras("http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
+                    break;
+                case "3":
+                    changeIPCameras("http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
+                    break;
+                case "4":
+                    changeIPCameras("http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link")
+                    break;
+                case "5":
+                    changeIPCameras("http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link")
+                    break;
+                case "6":
+                    changeIPCameras("http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link")
+                    break;
+                case "7":
+                    changeIPCameras("http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link")
+                    break;
+            }
+        }
+    });
+}
