@@ -264,7 +264,7 @@ $(".list-group .list-group-item").click(function(e) {
     $(e.target).addClass("active");
  });
 
- //document.getElementById('ioLive').addEventListener('click', _ => {
+
     $('#ioLive').click(_ => {
   console.log("1")
 
