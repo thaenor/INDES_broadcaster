@@ -263,13 +263,30 @@ $(".list-group .list-group-item").click(function(e) {
     $(".list-group .list-group-item").removeClass("active");
     $(e.target).addClass("active");
  });
-/* //ip camera to live area, TODO
- $('#IPCameraArea').click( _ => {
-    $('#LiveStreamIpCamera').removeClass('ninja')
-    $('#IPCameraArea').removeClasse('video-inactive')
-    $('#IPCameraArea').addClass('video-active')
-    const LiveStreamArea = document.getElementById('LiveStreamIpCamera')
-    const currentIpCam = document.getElementById('stream')
-    LiveStreamArea.src = "http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link"
-}) */
+
+ //document.getElementById('ioLive').addEventListener('click', _ => {
+    $('#ioLive').click(_ => {
+  console.log("1")
+
+  
+    if ($('#ioLive').hasClass('video-inactive')) {
+        console.log("2")
+        const ipcam = document.getElementById('stream')
+        console.log("stream 2 live" + ipcam.src)
+        $('#LiveStreamIpCamera').removeClass('ninja')
+        $('#LiveStreamIpCamera').attr('src',ipcam.src) 
+        $('#ioLive').removeClass('video-inactive')
+        $('#ioLive').addClass('video-active')
+    }
+    else {
+        console.log("3")
+        $('#LiveStreamIpCamera').attr('src',"") 
+        $('#LiveStreamIpCamera').addClass('ninja')
+        $('#ioLive').removeClass('video-active')
+        $('#ioLive').addClass('video-inactive')
+        const currentlive = document.getElementById('LiveStreamIpCamera').src //debug
+        console.log("current live" + currentlive.src)  //debug
+    }
+});
+
 
