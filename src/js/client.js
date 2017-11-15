@@ -216,15 +216,16 @@ function changeIPCameras(link) {
 
 }
 
+//Init Ip Cameras
 function initIPCameras() {
-    //Ip live stream camera (maybe in another place)
+   
     const StreamLive = document.getElementById('stream')
 
     StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
-    //"http://96.10.1.168/mjpg/1/video.mjpg"//+ new Date().getTime()
-    //http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link - US, park city
+
     var ul = document.getElementById('ipList'); // Parent
 
+    //changes camera OnClick of list element
     ul.addEventListener('click', function (e) {
         if (e.target.tagName === 'LI') {
             // alert(e.target.id);  // Check if the element is a LI
@@ -235,7 +236,7 @@ function initIPCameras() {
                 case "2":
                     changeIPCameras("http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
                     break;
-                case "3":
+                case "3": //THIS CAM IS DOWN, SWITCH LINK !
                     changeIPCameras("http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
                     break;
                 case "4":
@@ -253,4 +254,22 @@ function initIPCameras() {
             }
         }
     });
+
+ 
 }
+
+//Toggle colour of list group active item in IpCamera
+$(".list-group .list-group-item").click(function(e) {
+    $(".list-group .list-group-item").removeClass("active");
+    $(e.target).addClass("active");
+ });
+/* //ip camera to live area, TODO
+ $('#IPCameraArea').click( _ => {
+    $('#LiveStreamIpCamera').removeClass('ninja')
+    $('#IPCameraArea').removeClasse('video-inactive')
+    $('#IPCameraArea').addClass('video-active')
+    const LiveStreamArea = document.getElementById('LiveStreamIpCamera')
+    const currentIpCam = document.getElementById('stream')
+    LiveStreamArea.src = "http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link"
+}) */
+
