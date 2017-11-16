@@ -38,6 +38,9 @@ function loadPlaceholder() {
         const path = _.target.files[0].path
         $('#PlaceholderSelector').remove();
         document.getElementById('LiveStreamCamera').setAttribute('poster', _.target.files[0].path)
+
+        //show placeholder  - necessario para o poster aparecer de inicio
+        document.getElementById('LiveStreamCamera').setAttribute('class', undefined)
     })
 }
 
@@ -52,10 +55,26 @@ function createVideoElement(parentEl, id) {
         if (newVideo.classList.contains('video-inactive')) {
             activateVideoStream(newVideo)
             document.getElementById('LiveStreamCamera').setAttribute('src', newVideo.src)
+            //==========================================
+            //retira a class do livestream camera (pode estar a hidden ou a ninja)
+            document.getElementById('LiveStreamCamera').setAttribute('class', undefined)
+            //força ipcam a hidden
+            document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+            $('#LiveStreamCamera').attr('width',"650")
+            $('#LiveStreamCamera').attr('height',"400")
+
         } else {
             newVideo.classList.remove("video-active")
             newVideo.setAttribute('class', 'video-inactive')
             document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
+            //==========================================
+             //retira a class do livestream camera (pode estar a hidden ou a ninja)
+             document.getElementById('LiveStreamCamera').setAttribute('class', 'hidden')
+             //força ipcam a hidden
+             //document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+             //retira o w e h
+            $('#LiveStreamCamera').attr('width',"")
+            $('#LiveStreamCamera').attr('height',"")
         }
     })
     parentEl.appendChild(newVideo)
@@ -124,7 +143,15 @@ function initYoutube() {
         }
     });
 
-    $('#YoutubeArea').click( _ => {
+    $('#YoutubeArea').click( _ => { //para tornar live o youtube video
+        //forca yotubeCacete a aparecer
+       document.getElementById('YoutubeCacete').setAttribute('class', undefined)
+
+       //esconde ipcam
+       document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+
+
+
         $('#LiveStreamCamera').addClass('ninja')
         $('#YoutubeCacete').removeClass('ninja')
         $('#YoutubeCacete').addClass('video-active')
@@ -180,10 +207,29 @@ function intiLocalPlayer() {
         if ($('#CurrentLocalvideo').hasClass('video-inactive')) {
             activateVideoStream($('#CurrentLocalvideo')[0])
             document.getElementById('LiveStreamCamera').setAttribute('src', $('#CurrentLocalvideo')[0].src)
+
+             //===========
+              //retira a class do livestream camera (pode estar a hidden ou a ninja)
+            document.getElementById('LiveStreamCamera').setAttribute('class', undefined)
+            //força ipcam a hidden
+            document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+
+             $('#LiveStreamCamera').attr('width',"650")
+             $('#LiveStreamCamera').attr('height',"400")
+
         } else {
             $('#CurrentLocalvideo').removeClass("video-active")
             $('#CurrentLocalvideo').addClass('video-inactive')
             document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
+
+             //===========
+              //esconde o livestreamcamera
+            document.getElementById('LiveStreamCamera').setAttribute('class', 'hidden')
+            //força ipcam a hidden
+           // document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+
+             $('#LiveStreamCamera').attr('width',"")
+             $('#LiveStreamCamera').attr('height',"")
         }
     })
 }
@@ -275,15 +321,42 @@ $(".list-group .list-group-item").click(function(e) {
         console.log("stream 2 live" + ipcam.src)
         $('#LiveStreamIpCamera').removeClass('ninja')
         $('#LiveStreamIpCamera').attr('src',ipcam.src) 
+
+        // =============
+        $('#LiveStreamIpCamera').attr('width',"650")
+        $('#LiveStreamIpCamera').attr('height',"400")
+
+        //forca a ipcamera a aparecer
+         //retira a class do livestream camera (pode estar a hidden ou a ninja)
+         document.getElementById('LiveStreamIpCamera').setAttribute('class', undefined)
+         //força ipcam a hidden
+        // document.getElementById('LiveStreamIpCamera').setAttribute('class', 'hidden')
+
+        //HIDES EVERYTHING
+        document.getElementById("LiveStreamCamera").className = 'hidden'; 
+        document.getElementById("YoutubeCacete").className = 'hidden'; 
+       // document.getElementById("PlaceholderSelector").className = 'hidden'; 
+        
         $('#ioLive').removeClass('video-inactive')
         $('#ioLive').addClass('video-active')
     }
     else {
         console.log("3")
         $('#LiveStreamIpCamera').attr('src',"") 
+
+        //=================
+        $('#LiveStreamIpCamera').attr('width',"")
+        $('#LiveStreamIpCamera').attr('height',"")
+
+
         $('#LiveStreamIpCamera').addClass('ninja')
         $('#ioLive').removeClass('video-active')
         $('#ioLive').addClass('video-inactive')
+
+        // EVERYTHING BACK TO NORMAL STATE
+        document.getElementById("LiveStreamCamera").className = 'ninja'; 
+        document.getElementById("YoutubeCacete").className = 'ninja'; 
+       // document.getElementById("PlaceholderSelector").className = undefined; 
         const currentlive = document.getElementById('LiveStreamIpCamera').src //debug
         console.log("current live" + currentlive.src)  //debug
     }

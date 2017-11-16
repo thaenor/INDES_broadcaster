@@ -39,5 +39,10 @@
 }
 
 .ninja {
-  display: none;
+ display: none; 
+
+}
+
+.hidden{
+  visibility:hidden;
 }
