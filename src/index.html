@@ -23,11 +23,29 @@
 <body>
   <header id="cameraList" class="col-md-12 content"></header>
 
+<!-- local video Area
+<section id="LocalVideoArea" class="col-md-12 area content">
+  <div class="text-center">
+    <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
+  </div>
+
+  <div class="text-center">
+    <button id="playLocalVideo" class="btn btn-default">Start</button>
+    <div class="queue">
+      <ul id="LocalQueue" class="queue">
+      </ul>
+    </div>
+    <hr/>
+    <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
+  </div>
+</section>
+-->
+
   <!-- left Sidebar section -->
   <aside class="col-md-3 content">
 
     <!-- Youtube Area -->
-    <section id="YoutubeArea" class="video-inactive area">
+    <section id="YoutubeArea" class="area">
       <!--Youtube API player (iFrame API) -->
       <video id="player"></video>
 
@@ -42,8 +60,12 @@
         <hr/>
         <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
         <button id="YoutubeAddToList" class="btn btn-default">Add</button>
+        <br/><br/>
+        <button id="YoutubeGoLive" class="btn btn-danger">Offline</button>
       </section>
     </section>
+    <!-- MAIS CACETE 
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>-->
   </aside>
 
   <!-- Live Section -->
@@ -66,7 +88,8 @@
           <li id="6" class="list-group-item">Alabama - USA</li>
           <li id="7"class="list-group-item">Serbia, Belgrade - Traffic</li>
         </ul>
-        <button id="ioLive" class="video-inactive">IP LIVE</button>
+        <button id="ioLive" class="btn btn-danger">IP LIVE</button>
+        <br/><br/>
     <img id="stream" width="350" height="300" />
     
     
@@ -76,13 +99,11 @@
 
   <!-- local video Area -->
   <section id="LocalVideoArea" class="col-md-12 area">
-    <!-- local video play area -->
-    <div class="">
+    <div class="text-center">
       <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
     </div>
 
-    <!-- local video list section -->
-    <div class="">
+    <div class="text-center">
       <button id="playLocalVideo" class="btn btn-default">Start</button>
       <div class="queue">
         <ul id="LocalQueue" class="queue">

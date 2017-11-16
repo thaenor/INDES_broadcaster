@@ -10,7 +10,7 @@ import YoutubeList from './youtubeList';
 let cameraArray = []
 let player
 let ytList = []
-let ll, yt, currentYoutubeVideo, livePlayerState
+let ll, yt, currentYoutubeVideo, livePlayerState, currentIPCamera
 
 window.addEventListener('DOMContentLoaded', _ => {
     loadPlaceholder()
@@ -27,6 +27,7 @@ function activateVideoStream(c) {
     $('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
     $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
     $('#YoutubeCacete').addClass('ninja')
+    $('#LiveStreamIpCamera').addClass('ninja')
     $('#LiveStreamCamera').removeClass('ninja')
     c.classList.remove("video-inactive")
     c.setAttribute('class', 'video-active')
@@ -124,16 +125,30 @@ function initYoutube() {
         }
     });
 
-    $('#YoutubeArea').click( _ => {
-        $('#LiveStreamCamera').addClass('ninja')
-        $('#YoutubeCacete').removeClass('ninja')
-        $('#YoutubeCacete').addClass('video-active')
-        livePlayerState = document.getElementById('YoutubeCacete')
-        let player2 = YouTubePlayer('YoutubeCacete', {
-            width: 650,
-            height: 400,
-            videoId: currentYoutubeVideo
-        })
+    $('#YoutubeGoLive').click(_ => {
+        if ($('#YoutubeCacete').hasClass('ninja')){
+            $('#YoutubeGoLive').text('Online')
+            $('#YoutubeGoLive').removeClass('btn-danger').addClass('btn-success')
+            $('#LiveStreamCamera').addClass('ninja')
+            $('#LiveStreamIpCamera').addClass('ninja')
+            $('#YoutubeCacete').removeClass('ninja')
+            $('#ioLive').removeClass('video-active').addClass('video-inactive')
+            $('#YoutubeCacete').removeClass('video-inactive')
+            $('#YoutubeCacete').addClass('video-active')
+            livePlayerState = document.getElementById('YoutubeCacete')
+            let player2 = YouTubePlayer('YoutubeCacete', {
+                width: 650,
+                height: 400,
+                videoId: currentYoutubeVideo
+            })
+        } else {
+            $('#YoutubeGoLive').text('Offline')
+            $('#YoutubeGoLive').removeClass('btn-sucess').addClass('btn-danger')
+            $('#LiveStreamCamera').removeClass('ninja')
+            $('#YoutubeCacete').addClass('ninja')
+            $('#YoutubeCacete').removeClass('video-active')
+            $('#YoutubeCacete').addClass('video-inactive')
+        }
     })
 }
 
@@ -190,9 +205,9 @@ function intiLocalPlayer() {
 
 function createYoutubePlayerList() {
     yt = new YoutubeList(ytList, '#YTqueue')
-    //yt.addToList('mg2cMqW_hOY')
-    //yt.addToList('L_XJ_s5IsQc')
-    //yt.addToList('j_rOAmnISzE')
+    yt.addToList('mg2cMqW_hOY')
+    yt.addToList('L_XJ_s5IsQc')
+    yt.addToList('j_rOAmnISzE')
     //Youtube Video Queue event
     document.getElementById('YoutubeAddToList').addEventListener('click', _ => {
         //TODO: error alternatives: "" or invalid link
@@ -208,9 +223,9 @@ function createYoutubePlayerList() {
 
 // IPCAM - change cameras by clicking the list elements 
 
-function changeIPCameras(link) {
+function changeIPCameras(el_ID, link) {
 
-    const StreamLive = document.getElementById('stream')
+    const StreamLive = document.getElementById(el_ID)
 
     StreamLive.src = link
 
@@ -222,6 +237,7 @@ function initIPCameras() {
     const StreamLive = document.getElementById('stream')
 
     StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
+    currentIPCamera = "http://96.10.1.168/mjpg/1/video.mjpg"
 
     var ul = document.getElementById('ipList'); // Parent
 
@@ -231,31 +247,56 @@ function initIPCameras() {
             // alert(e.target.id);  // Check if the element is a LI
             switch (e.target.id) {
                 case "1":
-                    changeIPCameras("http://96.10.1.168/mjpg/1/video.mjpg")
+                    currentIPCamera = "http://96.10.1.168/mjpg/1/video.mjpg"
+                    changeIPCameras('stream', "http://96.10.1.168/mjpg/1/video.mjpg")
                     break;
                 case "2":
-                    changeIPCameras("http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
+                    currentIPCamera = "http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link"
+                    changeIPCameras('stream', "http://67.128.146.29/mjpg/video.mjpg?COUNTER#.WgXTzKI9PbU.link")
                     break;
                 case "3": //THIS CAM IS DOWN, SWITCH LINK !
-                    changeIPCameras("http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
+                    currentIPCamera = "http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link"
+                    changeIPCameras('stream', "http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgXY2mvfjSU.link")
                     break;
                 case "4":
-                    changeIPCameras("http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link")
+                    currentIPCamera = "http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link"
+                    changeIPCameras('stream', "http://118.243.204.173/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER#.WgX0RL6V5yI.link")
                     break;
                 case "5":
-                    changeIPCameras("http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link")
+                    currentIPCamera = "http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link"
+                    changeIPCameras('stream', "http://98.189.156.36/mjpg/video.mjpg?COUNTER#.WgX0mrAD_xE.link")
                     break;
                 case "6":
-                    changeIPCameras("http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link")
+                    currentIPCamera = "http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link"
+                    changeIPCameras('stream', "http://209.12.71.138/mjpg/video.mjpg?COUNTER#.WgX0OyVZsDs.link")
                     break;
                 case "7":
-                    changeIPCameras("http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link")
+                    currentIPCamera = "http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link"
+                    changeIPCameras('stream', "http://91.234.133.122:8080/cam_1.cgi#.WgX00oj6pUM.link")
                     break;
             }
         }
     });
 
- 
+    attachIPCameraToLiveEventHandler()
+}
+
+function attachIPCameraToLiveEventHandler() {
+    $('#ioLive').click( _ => {
+        if ($('#ioLive').hasClass('btn-danger')) {
+            $('#ioLive').removeClass('btn-danger').addClass('btn-success')
+            $('#YoutubeGoLive').removeClass('video-active').addClass('video-inactive')
+            $('#LiveStreamCamera').addClass('ninja')
+            $('#YoutubeCacete').addClass('ninja')
+            changeIPCameras('LiveStreamIpCamera', currentIPCamera)
+            $('#LiveStreamIpCamera').removeClass('ninja')
+        } else {
+            $('#ioLive').removeClass('btn-success').addClass('btn-danger')
+            $('#LiveStreamIpCamera').addClass('ninja')
+            changeIPCameras('LiveStreamIpCamera', "")
+            $('LiveStreamCamera').removeClass('ninja')
+        }
+    })
 }
 
 //Toggle colour of list group active item in IpCamera
@@ -265,28 +306,26 @@ $(".list-group .list-group-item").click(function(e) {
  });
 
 
-    $('#ioLive').click(_ => {
-  console.log("1")
-
+    // $('#ioLive').click(_ => {
   
-    if ($('#ioLive').hasClass('video-inactive')) {
-        console.log("2")
-        const ipcam = document.getElementById('stream')
-        console.log("stream 2 live" + ipcam.src)
-        $('#LiveStreamIpCamera').removeClass('ninja')
-        $('#LiveStreamIpCamera').attr('src',ipcam.src) 
-        $('#ioLive').removeClass('video-inactive')
-        $('#ioLive').addClass('video-active')
-    }
-    else {
-        console.log("3")
-        $('#LiveStreamIpCamera').attr('src',"") 
-        $('#LiveStreamIpCamera').addClass('ninja')
-        $('#ioLive').removeClass('video-active')
-        $('#ioLive').addClass('video-inactive')
-        const currentlive = document.getElementById('LiveStreamIpCamera').src //debug
-        console.log("current live" + currentlive.src)  //debug
-    }
-});
+    // if ($('#ioLive').hasClass('video-inactive')) {
+    //     console.log("2")
+    //     const ipcam = document.getElementById('stream')
+    //     console.log("stream 2 live" + ipcam.src)
+    //     $('#LiveStreamIpCamera').removeClass('ninja')
+    //     $('#LiveStreamIpCamera').attr('src',ipcam.src) 
+    //     $('#ioLive').removeClass('video-inactive')
+    //     $('#ioLive').addClass('video-active')
+    // }
+    // else {
+    //     console.log("3")
+    //     $('#LiveStreamIpCamera').attr('src',"") 
+    //     $('#LiveStreamIpCamera').addClass('ninja')
+    //     $('#ioLive').removeClass('video-active')
+    //     $('#ioLive').addClass('video-inactive')
+    //     const currentlive = document.getElementById('LiveStreamIpCamera').src //debug
+    //     console.log("current live" + currentlive.src)  //debug
+    // }
+    //});
 
 
