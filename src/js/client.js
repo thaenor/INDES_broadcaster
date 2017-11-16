@@ -25,7 +25,7 @@ function activateVideoStream(c) {
     $('#cameraList').find('video').removeClass('video-active').addClass('video-inactive')
     $('#YoutubeArea').removeClass('video-active').addClass('video-inactive')
     $('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
-    $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
+   // $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
     $('#YoutubeCacete').addClass('ninja')
     $('#LiveStreamCamera').removeClass('ninja')
     c.classList.remove("video-inactive")
