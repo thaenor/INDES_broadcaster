@@ -23,24 +23,6 @@
 <body>
   <header id="cameraList" class="col-md-12 content"></header>
 
-<!-- local video Area
-<section id="LocalVideoArea" class="col-md-12 area content">
-  <div class="text-center">
-    <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
-  </div>
-
-  <div class="text-center">
-    <button id="playLocalVideo" class="btn btn-default">Start</button>
-    <div class="queue">
-      <ul id="LocalQueue" class="queue">
-      </ul>
-    </div>
-    <hr/>
-    <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
-  </div>
-</section>
--->
-
   <!-- left Sidebar section -->
   <aside class="col-md-3 content">
 
@@ -57,15 +39,33 @@
             <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>-->
           </ul>
         </div>
-        <hr/>
+        <br/>
         <input id="youtubeURLToQueue" type="text" placeholder="paste youtube URL" />
         <button id="YoutubeAddToList" class="btn btn-default">Add</button>
-        <br/><br/>
         <button id="YoutubeGoLive" class="btn btn-danger">Offline</button>
+        <br/>
+        <br/>
       </section>
     </section>
-    <!-- MAIS CACETE 
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>-->
+
+    <hr/>
+    <hr/>
+    <!-- local video Area -->
+    <section id="LocalVideoArea" class="col-md-12 area">
+      <div class="text-center">
+        <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
+      </div>
+
+      <div class="text-center">
+        <button id="playLocalVideo" class="btn btn-default">Start</button>
+        <div class="queue">
+          <ul id="LocalQueue" class="queue">
+          </ul>
+        </div>
+        <hr/>
+        <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
+      </div>
+    </section>
   </aside>
 
   <!-- Live Section -->
@@ -74,45 +74,29 @@
     <input id="PlaceholderSelector" type="file" placeholder="choose your image" />
     <video id="LiveStreamCamera" width="650" height="400" autoplay></video>
     <video id="YoutubeCacete" class="ninja" width="650" height="400" autoplay></video>
-    <img id="LiveStreamIpCamera" class="ninja" width="650" height="400"/>
+    <img id="LiveStreamIpCamera" class="ninja" width="650" height="400" />
   </article>
 
   <!-- IP Camera Area -->
   <aside id="IPCameraArea" class="col-md-3 content area">
-      <ul id="ipList" class="list-group">
-          <li id="1" class="list-group-item active">Night Traffic - USA</li>
-          <li id="2" class="list-group-item">park city - USA</li>
-          <li id="3" class="list-group-item">Salzburg - Austria</li>
-          <li id="4" class="list-group-item">Tokyo - Japan</li>
-          <li id="5" class="list-group-item">Los Angeles - USA</li>
-          <li id="6" class="list-group-item">Alabama - USA</li>
-          <li id="7"class="list-group-item">Serbia, Belgrade - Traffic</li>
-        </ul>
-        <button id="ioLive" class="btn btn-danger">IP LIVE</button>
-        <br/><br/>
+    <ul id="ipList" class="list-group">
+      <li id="1" class="list-group-item active">Night Traffic - USA</li>
+      <li id="2" class="list-group-item">park city - USA</li>
+      <li id="3" class="list-group-item">Salzburg - Austria</li>
+      <li id="4" class="list-group-item">Tokyo - Japan</li>
+      <li id="5" class="list-group-item">Los Angeles - USA</li>
+      <li id="6" class="list-group-item">Alabama - USA</li>
+      <li id="7" class="list-group-item">Serbia, Belgrade - Traffic</li>
+    </ul>
+    <button id="ioLive" class="btn btn-danger">IP LIVE</button>
+    <br/>
+    <br/>
     <img id="stream" width="350" height="300" />
-    
-    
-   
-    
+
+
+
+
   </aside>
-
-  <!-- local video Area -->
-  <section id="LocalVideoArea" class="col-md-12 area">
-    <div class="text-center">
-      <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
-    </div>
-
-    <div class="text-center">
-      <button id="playLocalVideo" class="btn btn-default">Start</button>
-      <div class="queue">
-        <ul id="LocalQueue" class="queue">
-        </ul>
-      </div>
-      <hr/>
-      <input id="localToQueue" type="file" placeholder="paste youtube URL" accept="video/*" />
-    </div>
-  </section>
 
   <footer class="col-lg-12 well">Made with ❤️ in Electron</footer>
   <script>

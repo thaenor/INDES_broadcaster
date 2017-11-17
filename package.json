@@ -50,6 +50,7 @@
         "electron-compile": "^6.4.2",
         "electron-reload": "^1.2.2",
         "electron-squirrel-startup": "^1.0.0",
+        "googleapis": "^22.2.0",
         "jquery": "^3.2.1",
         "jquery-ui": "^1.12.1",
         "passport": "^0.4.0",
