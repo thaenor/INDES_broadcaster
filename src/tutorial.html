@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../vendor/jquery-ui.min.css" />
 </head>
 
-<body>
+<body style="margin: 30px">
     <header class="col-md-12 content">
         <h1 class="text-center">INDES broadcaster</h1>
         <h2 class="text-center">How to use</h2>
@@ -21,15 +21,28 @@
              This page serves as a quick tutorial on how to use the app.
         </p>
 
-        * The top cameras are your webcams - click them to broadcast their content
-        * On the left side is the youtube Area
-            * copy Youtube ID's onto the textbox to store them in the list
-            * reorder the list and play. TODO: disable the first item
-        * The local video are is the same as Youtube but with local videos
-        * The IP cam let's you select an IP camera from the list and place it on the thing
+        <ul class="list-group">
+            <li class="list-group-item">You can choose an image to act as a placeholder before you start your broadcast</li>
+            <li class="list-group-item">The top cameras are your webcams - click them to broadcast their content (red means they're NOT livestreaming, green means they are)</li>
+            <li class="list-group-item">On the left side is the youtube Area
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        You can copy Youtube video ID's onto the textbox to store them in the list
+                    </li>
+                    <li class="list-group-item">
+                        And reorder the list and play the video in test more, before sending it to the "live area" where it's livestreamed to your audience
+                    </li>
+                </ul>
+            </li>
+            <li class="list-group-item">The local video are is the same as Youtube but with local videos</li>
+            <li class="list-group-item">The IP cam let's you select an IP camera from the list and place it on the thing</li>
+            <li class="list-group-item">You can use Google Hangouts to support broadcasting an Youtube event</li>
+        </ul>
     </main>
 
-    <footer class="col-lg-12 well">Made with ❤️ in Electron</footer>
+    <footer class="col-lg-12 well">
+        Project developed by: Francisco Santos, Ricardo Silva - ISEP/INDES 2017
+    </footer>
 </body>
 
 </html>
