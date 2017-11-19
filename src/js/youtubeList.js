@@ -3,7 +3,8 @@ export default class YtList {
         this.items = items
         this.element = element
         $(this.element).sortable({
-            update: (event, ui) => this.reorderElement(event, ui)
+            update: (event, ui) => this.reorderElement(event, ui),
+            placeholder: "ui-state-highlight"
         })
         $(this.element).disableSelection()
     }
@@ -30,6 +31,9 @@ export default class YtList {
     }
 
     reorderElement(event, ui) {
+        // if (ui.item[0] == $(`${this.element} li:first-child`)[0]){
+        //     alert('you moved this to the TOP!')
+        // }
         return this.items = $(this.element).sortable('toArray');
     }
 

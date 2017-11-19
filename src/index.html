@@ -53,11 +53,12 @@
     <!-- local video Area -->
     <section id="LocalVideoArea" class="col-md-12 area">
       <div class="text-center">
-        <video id="CurrentLocalvideo" class="video-inactive" width="250" height="120" autoplay controls />
+        <video id="CurrentLocalvideo" muted class="" width="250" height="120" autoplay controls />
       </div>
 
       <div class="text-center">
         <button id="playLocalVideo" class="btn btn-default">Start</button>
+        <button id="LocalGoLive" class="btn btn-danger">Offline</button>
         <div class="queue">
           <ul id="LocalQueue" class="queue">
           </ul>
@@ -72,7 +73,7 @@
   <article id="LiveStreamArea" class="col-md-6">
     Live stream <a href="https://youtube.com/my_live_events" target="_blank">Here</a> (recomend using Chrome and Hangouts)
     <input id="PlaceholderSelector" type="file" placeholder="choose your image" />
-    <video id="LiveStreamCamera" width="650" height="400" autoplay></video>
+    <video id="LiveStreamCamera" muted width="650" height="400" autoplay></video>
     <video id="YoutubeCacete" class="ninja" width="650" height="400" autoplay></video>
     <img id="LiveStreamIpCamera" class="ninja" width="650" height="400" />
   </article>

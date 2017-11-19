@@ -5,7 +5,7 @@ import YoutubeStrategy from 'passport-youtube-v3'
 import passport from 'passport'
 import Camera from './video'
 import LocalList from './localList'
-import YoutubeList from './youtubeList';
+import YoutubeList from './youtubeList'
 
 let cameraArray = []
 let player
@@ -22,15 +22,28 @@ window.addEventListener('DOMContentLoaded', _ => {
 });
 
 function activateVideoStream(c) {
-    $('#cameraList').find('video').removeClass('video-active').addClass('video-inactive')
-    $('#YoutubeArea').removeClass('video-active').addClass('video-inactive')
-    $('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
-    $('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
+    $('#cameraList').find('video').removeClass('video-active').addClass('video-inactive video-camera')
+    //$('#YoutubeArea').removeClass('video-active').addClass('video-inactive')
+    //$('#CurrentLocalvideo').removeClass('video-active').addClass('video-inactive')
+    //$('#IPCameraArea').removeClass('video-active').addClass('video-inactive')
     $('#YoutubeCacete').addClass('ninja')
     $('#LiveStreamIpCamera').addClass('ninja')
     $('#LiveStreamCamera').removeClass('ninja')
-    c.classList.remove("video-inactive")
-    c.setAttribute('class', 'video-active')
+    $('#ioLive').removeClass('btn-success').addClass('btn-danger')
+    $('#LocalGoLive').removeClass('btn-success').addClass('btn-danger')
+    $('#YoutubeGoLive').removeClass('btn-success').addClass('btn-danger')
+    if (c.id != 'CurrentLocalvideo'){
+        c.classList.remove("video-inactive")
+        c.setAttribute('class', 'video-active video-camera')
+    }
+}
+
+function shutdownTopCameras() {
+    // cameraArray.forEach((el, i) => {
+    //     $(el).removeClass('video-active').removeClass('video-inactive').addClass('video-inactive')
+    // })
+    $('#cameraList').find('video').removeClass('video-active').addClass('video-inactive video-camera')
+    document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
 }
 
 function loadPlaceholder() {
@@ -44,7 +57,7 @@ function loadPlaceholder() {
 
 function createVideoElement(parentEl, id) {
     const newVideo = document.createElement('video')
-    newVideo.setAttribute('class', 'video-inactive')
+    newVideo.setAttribute('class', 'video-inactive video-camera')
     newVideo.setAttribute('id', id)
     newVideo.setAttribute('width', 210)
     newVideo.setAttribute('height', 120)
@@ -55,7 +68,7 @@ function createVideoElement(parentEl, id) {
             document.getElementById('LiveStreamCamera').setAttribute('src', newVideo.src)
         } else {
             newVideo.classList.remove("video-active")
-            newVideo.setAttribute('class', 'video-inactive')
+            newVideo.setAttribute('class', 'video-inactive video-camera')
             document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
         }
     })
@@ -87,7 +100,7 @@ function initCameras() {
                     };
                     const c = new Camera(constrains)
                     c.init(newCam)
-                    cameraArray.push()
+                    cameraArray.push(newCam)
                 }
             });
         })
@@ -132,18 +145,21 @@ function initYoutube() {
             $('#LiveStreamCamera').addClass('ninja')
             $('#LiveStreamIpCamera').addClass('ninja')
             $('#YoutubeCacete').removeClass('ninja')
-            $('#ioLive').removeClass('video-active').addClass('video-inactive')
+            $('#ioLive').removeClass('btn-success').addClass('btn-danger')
             $('#YoutubeCacete').removeClass('video-inactive')
             $('#YoutubeCacete').addClass('video-active')
+            shutdownTopCameras()
             livePlayerState = document.getElementById('YoutubeCacete')
             let player2 = YouTubePlayer('YoutubeCacete', {
                 width: 650,
                 height: 400,
                 videoId: currentYoutubeVideo
             })
+            player2.playVideo()
         } else {
             $('#YoutubeGoLive').text('Offline')
-            $('#YoutubeGoLive').removeClass('btn-sucess').addClass('btn-danger')
+            $('#YoutubeGoLive').removeClass('btn-success').addClass('btn-danger')
+            $('#LocalGoLive').removeClass('btn-success').addClass('btn-danger')
             $('#LiveStreamCamera').removeClass('ninja')
             $('#YoutubeCacete').addClass('ninja')
             $('#YoutubeCacete').removeClass('video-active')
@@ -172,14 +188,15 @@ function signin() {
 
 function intiLocalPlayer() {
     ll = new LocalList('#LocalQueue')
-    //ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
-    //ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
-    //ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
+    ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
+    ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
+    ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
         ll.addToList(_.target.files[0].path)
         document.getElementById('CurrentLocalvideo').src = `file://${_.target.files[0].path}`
     })
+
     $('#playLocalVideo').click(_ => {
         const vid = ll.popVideo()
         document.getElementById('CurrentLocalvideo').src = `file://${vid}`
@@ -189,15 +206,23 @@ function intiLocalPlayer() {
     vid.onended = _ => {
         const vid = ll.popVideo()
         document.getElementById('CurrentLocalvideo').src = `file://${vid}`
-    }
-
-    $('#CurrentLocalvideo').click(_ => {
-        if ($('#CurrentLocalvideo').hasClass('video-inactive')) {
-            activateVideoStream($('#CurrentLocalvideo')[0])
+        if ($('#LocalGoLive').hasClass('btn-success')){
             document.getElementById('LiveStreamCamera').setAttribute('src', $('#CurrentLocalvideo')[0].src)
         } else {
-            $('#CurrentLocalvideo').removeClass("video-active")
-            $('#CurrentLocalvideo').addClass('video-inactive')
+            document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
+        }
+    }
+
+    $('#LocalGoLive').click(_ => {
+        if ($('#LocalGoLive').hasClass('btn-danger')) {
+            activateVideoStream($('#CurrentLocalvideo')[0])
+            $('#ioLive').removeClass('btn-success').addClass('btn-danger')
+            $('#LocalGoLive').removeClass('btn-danger').addClass('btn-success')
+            $('#LocalGoLive').text("Online")
+            document.getElementById('LiveStreamCamera').setAttribute('src', $('#CurrentLocalvideo')[0].src)
+        } else {
+            $('#LocalGoLive').removeClass("btn-success").addClass('btn-danger')
+            $('#LocalGoLive').text('Offline')
             document.getElementById('LiveStreamCamera').setAttribute('src', undefined)
         }
     })
@@ -285,9 +310,11 @@ function attachIPCameraToLiveEventHandler() {
     $('#ioLive').click( _ => {
         if ($('#ioLive').hasClass('btn-danger')) {
             $('#ioLive').removeClass('btn-danger').addClass('btn-success')
-            $('#YoutubeGoLive').removeClass('video-active').addClass('video-inactive')
+            $('#YoutubeGoLive').removeClass('btn-success').addClass('btn-danger')
+            $('#LocalGoLive').removeClass('btn-success').addClass('btn-danger')
             $('#LiveStreamCamera').addClass('ninja')
             $('#YoutubeCacete').addClass('ninja')
+            shutdownTopCameras()
             changeIPCameras('LiveStreamIpCamera', currentIPCamera)
             $('#LiveStreamIpCamera').removeClass('ninja')
         } else {

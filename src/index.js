@@ -13,7 +13,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow, tutorialWindow;
 
 const createWindow = () => {
   // Create the browser window.
@@ -24,9 +24,22 @@ const createWindow = () => {
     frame: true
   });
 
+  tutorialWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    resizable: true,
+    frame: true
+  });
+
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
+  tutorialWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'tutorial.html'),
     protocol: 'file:',
     slashes: true
   }))
