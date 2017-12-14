@@ -8,7 +8,7 @@ import LocalList from './localList'
 import YoutubeList from './youtubeList'
 
 let cameraArray = []
-let player
+let player, player2
 let ytList = []
 let ll, yt, currentYoutubeVideo, livePlayerState, currentIPCamera
 
@@ -117,11 +117,16 @@ function initYoutube() {
     player = YouTubePlayer('player', {
         width: 250,
         height: 120,
-        videoId: 'M7lc1UVf-VE'
+        videoId: '7-qGKqveZaM'
+    })
+    player2 = YouTubePlayer('YoutubeCacete', {
+        width: 650,
+        height: 400,
+        videoId: ''
     })
     // 'loadVideoById' is queued until the player is ready to receive API calls. 
-    player.loadVideoById('_JaYTaBIWDU')
-    currentYoutubeVideo = '_JaYTaBIWDU'
+    //player.loadVideoById('_JaYTaBIWDU')
+    //currentYoutubeVideo = '_JaYTaBIWDU'
     // 'playVideo' is queue until the player is ready to received API calls and after 'loadVideoById' has been called. 
     // player.playVideo();
     // 'stopVideo' is queued after 'playVideo'. 
@@ -135,6 +140,7 @@ function initYoutube() {
             const newVid = yt.popVideo()
             currentYoutubeVideo = newVid
             player.loadVideoById(newVid)
+            player2.loadVideoById(currentYoutubeVideo)
         }
     });
 
@@ -150,11 +156,7 @@ function initYoutube() {
             $('#YoutubeCacete').addClass('video-active')
             shutdownTopCameras()
             livePlayerState = document.getElementById('YoutubeCacete')
-            let player2 = YouTubePlayer('YoutubeCacete', {
-                width: 650,
-                height: 400,
-                videoId: currentYoutubeVideo
-            })
+            player2.loadVideoById(currentYoutubeVideo)
             player2.playVideo()
         } else {
             $('#YoutubeGoLive').text('Offline')
@@ -188,9 +190,9 @@ function signin() {
 
 function intiLocalPlayer() {
     ll = new LocalList('#LocalQueue')
-    ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
-    ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
-    ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/example.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/music.mp4'))
+    //ll.addToList(path.join(__dirname, 'fixtures/cartoon.mp4'))
     document.getElementById('localToQueue').addEventListener('change', _ => {
         const path = _.target.files[0].path
         ll.addToList(_.target.files[0].path)
@@ -200,7 +202,7 @@ function intiLocalPlayer() {
     $('#playLocalVideo').click(_ => {
         const vid = ll.popVideo()
         document.getElementById('CurrentLocalvideo').src = `file://${vid}`
-        $('#playLocalVideo').remove()
+        //$('#playLocalVideo').remove()
     })
     const vid = document.getElementById('CurrentLocalvideo')
     vid.onended = _ => {
@@ -230,9 +232,9 @@ function intiLocalPlayer() {
 
 function createYoutubePlayerList() {
     yt = new YoutubeList(ytList, '#YTqueue')
-    yt.addToList('mg2cMqW_hOY')
-    yt.addToList('L_XJ_s5IsQc')
-    yt.addToList('j_rOAmnISzE')
+    //yt.addToList('mg2cMqW_hOY')
+    //yt.addToList('L_XJ_s5IsQc')
+    //yt.addToList('j_rOAmnISzE')
     //Youtube Video Queue event
     document.getElementById('YoutubeAddToList').addEventListener('click', _ => {
         //TODO: error alternatives: "" or invalid link
@@ -261,8 +263,8 @@ function initIPCameras() {
    
     const StreamLive = document.getElementById('stream')
 
-    StreamLive.src = "http://96.10.1.168/mjpg/1/video.mjpg"
-    currentIPCamera = "http://96.10.1.168/mjpg/1/video.mjpg"
+    StreamLive.src = "http://10.15.19.185:8080"
+    currentIPCamera = "http://10.15.19.185:8080"
 
     var ul = document.getElementById('ipList'); // Parent
 
